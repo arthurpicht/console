@@ -1,8 +1,8 @@
-package de.arthurpicht.console;
+package de.arthurpicht.console.message;
 
 import com.diogonunes.jcolor.Ansi;
 import com.diogonunes.jcolor.Attribute;
-import de.arthurpicht.console.format.Format;
+import de.arthurpicht.console.message.format.Format;
 
 import java.util.ArrayList;
 import java.util.List;

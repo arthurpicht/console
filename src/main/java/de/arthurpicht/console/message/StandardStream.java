@@ -1,4 +1,4 @@
-package de.arthurpicht.console;
+package de.arthurpicht.console.message;
 
 public enum StandardStream {
 
