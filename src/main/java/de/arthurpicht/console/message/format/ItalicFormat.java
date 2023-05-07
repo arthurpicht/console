@@ -1,5 +1,12 @@
 package de.arthurpicht.console.message.format;
 
-public class ItalicFormat extends Format {
+import com.diogonunes.jcolor.Attribute;
+
+public class ItalicFormat extends ColorFormat {
+
+    @Override
+    public Attribute asJColorAttribute() {
+        return Attribute.ITALIC();
+    }
 
 }

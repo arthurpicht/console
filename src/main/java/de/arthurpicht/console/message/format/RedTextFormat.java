@@ -1,5 +1,12 @@
 package de.arthurpicht.console.message.format;
 
-public class RedTextFormat extends Format {
+import com.diogonunes.jcolor.Attribute;
+
+public class RedTextFormat extends ColorFormat {
+
+    @Override
+    public Attribute asJColorAttribute() {
+        return Attribute.RED_TEXT();
+    }
 
 }

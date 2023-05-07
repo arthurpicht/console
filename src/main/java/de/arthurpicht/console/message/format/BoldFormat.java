@@ -1,5 +1,12 @@
 package de.arthurpicht.console.message.format;
 
-public class BoldFormat extends Format {
+import com.diogonunes.jcolor.Attribute;
+
+public class BoldFormat extends ColorFormat {
+
+    @Override
+    public Attribute asJColorAttribute() {
+        return Attribute.BOLD();
+    }
 
 }

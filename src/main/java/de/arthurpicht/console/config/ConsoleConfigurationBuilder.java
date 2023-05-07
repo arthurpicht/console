@@ -2,6 +2,7 @@ package de.arthurpicht.console.config;
 
 import de.arthurpicht.console.message.Level;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ConsoleConfigurationBuilder {
@@ -11,7 +12,7 @@ public class ConsoleConfigurationBuilder {
     private boolean plain;
     private boolean muteOutput;
     private boolean muteLoggerDelegation;
-    private List<LoggerDelegatorConfig> loggerDelegatorConfigList;
+    private final List<LoggerDelegatorConfig> loggerDelegatorConfigList;
 
     public ConsoleConfigurationBuilder() {
         this.level = Level.NORMAL;
@@ -19,6 +20,7 @@ public class ConsoleConfigurationBuilder {
         this.plain = false;
         this.muteOutput = false;
         this.muteLoggerDelegation = false;
+        this.loggerDelegatorConfigList = new ArrayList<>();
     }
 
     public ConsoleConfigurationBuilder asLevel(Level level) {
