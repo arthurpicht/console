@@ -1,187 +1,213 @@
 package de.arthurpicht.console.message.format;
 
+import com.diogonunes.jcolor.Attribute;
+
 public abstract class Format {
 
     // text effects
-    
+
     public static Format BOLD() {
-        return new ColorFormat(new JColorSimpleAttribute("1"));
+        return new ColorFormat(Attribute.BOLD());
     }
 
     public static Format ITALIC() {
-        return new ColorFormat(new JColorSimpleAttribute("3"));
+        return new ColorFormat(Attribute.ITALIC());
     }
 
     public static Format UNDERLINE() {
-        return new ColorFormat(new JColorSimpleAttribute("4"));
+        return new ColorFormat(Attribute.UNDERLINE());
     }
 
     public static Format SLOW_BLINK() {
-        return new ColorFormat(new JColorSimpleAttribute("5"));
+        return new ColorFormat(Attribute.SLOW_BLINK());
     }
 
     public static Format RAPID_BLINK() {
-        return new ColorFormat(new JColorSimpleAttribute("6"));
+        return new ColorFormat(Attribute.RAPID_BLINK());
     }
 
     public static Format REVERSE() {
-        return new ColorFormat(new JColorSimpleAttribute("7"));
+        return new ColorFormat(Attribute.REVERSE());
     }
 
     public static Format HIDDEN() {
-        return new ColorFormat(new JColorSimpleAttribute("8"));
+        return new ColorFormat(Attribute.HIDDEN());
     }
 
     public static Format STRIKETHROUGH() {
-        return new ColorFormat(new JColorSimpleAttribute("9"));
+        return new ColorFormat(Attribute.STRIKETHROUGH());
     }
 
     public static Format FRAMED() {
-        return new ColorFormat(new JColorSimpleAttribute("51"));
+        return new ColorFormat(Attribute.FRAMED());
     }
 
     public static Format ENCIRCLED() {
-        return new ColorFormat(new JColorSimpleAttribute("52"));
+        return new ColorFormat(Attribute.ENCIRCLED());
     }
 
     public static Format OVERLINED() {
-        return new ColorFormat(new JColorSimpleAttribute("53"));
+        return new ColorFormat(Attribute.OVERLINED());
     }
 
     // foreground colors
 
     public static Format BLACK_TEXT() {
-        return new ColorFormat(new JColorSimpleAttribute("30"));
+        return new ColorFormat(Attribute.BLACK_TEXT());
     }
 
     public static Format RED_TEXT() {
-        return new ColorFormat(new JColorSimpleAttribute("31"));
+        return new ColorFormat(Attribute.RED_TEXT());
     }
 
     public static Format GREEN_TEXT() {
-        return new ColorFormat(new JColorSimpleAttribute("32"));
+        return new ColorFormat(Attribute.GREEN_TEXT());
     }
 
     public static Format YELLOW_TEXT() {
-        return new ColorFormat(new JColorSimpleAttribute("33"));
+        return new ColorFormat(Attribute.YELLOW_TEXT());
     }
 
     public static Format BLUE_TEXT() {
-        return new ColorFormat(new JColorSimpleAttribute("34"));
+        return new ColorFormat(Attribute.BLUE_TEXT());
     }
 
     public static Format MAGENTA_TEXT() {
-        return new ColorFormat(new JColorSimpleAttribute("35"));
+        return new ColorFormat(Attribute.MAGENTA_TEXT());
     }
 
     public static Format CYAN_TEXT() {
-        return new ColorFormat(new JColorSimpleAttribute("36"));
+        return new ColorFormat(Attribute.CYAN_TEXT());
     }
 
     public static Format WHITE_TEXT() {
-        return new ColorFormat(new JColorSimpleAttribute("37"));
+        return new ColorFormat(Attribute.WHITE_TEXT());
     }
 
     // background colors
 
     public static Format BLACK_BACK() {
-        return new ColorFormat(new JColorSimpleAttribute("40"));
+        return new ColorFormat(Attribute.BLACK_BACK());
     }
 
     public static Format RED_BACK() {
-        return new ColorFormat(new JColorSimpleAttribute("41"));
+        return new ColorFormat(Attribute.RED_BACK());
     }
 
     public static Format GREEN_BACK() {
-        return new ColorFormat(new JColorSimpleAttribute("42"));
+        return new ColorFormat(Attribute.GREEN_BACK());
     }
 
     public static Format YELLOW_BACK() {
-        return new ColorFormat(new JColorSimpleAttribute("43"));
+        return new ColorFormat(Attribute.YELLOW_BACK());
     }
 
     public static Format BLUE_BACK() {
-        return new ColorFormat(new JColorSimpleAttribute("44"));
+        return new ColorFormat(Attribute.BLUE_BACK());
     }
 
     public static Format MAGENTA_BACK() {
-        return new ColorFormat(new JColorSimpleAttribute("45"));
+        return new ColorFormat(Attribute.MAGENTA_BACK());
     }
 
     public static Format CYAN_BACK() {
-        return new ColorFormat(new JColorSimpleAttribute("46"));
+        return new ColorFormat(Attribute.CYAN_BACK());
     }
 
     public static Format WHITE_BACK() {
-        return new ColorFormat(new JColorSimpleAttribute("47"));
+        return new ColorFormat(Attribute.WHITE_BACK());
     }
 
     // foreground bright colors
 
     public static Format BRIGHT_BLACK_TEXT() {
-        return new ColorFormat(new JColorSimpleAttribute("90"));
+        return new ColorFormat(Attribute.BRIGHT_BLACK_TEXT());
     }
 
     public static Format BRIGHT_RED_TEXT() {
-        return new ColorFormat(new JColorSimpleAttribute("91"));
+        return new ColorFormat(Attribute.BRIGHT_RED_TEXT());
     }
 
     public static Format BRIGHT_GREEN_TEXT() {
-        return new ColorFormat(new JColorSimpleAttribute("92"));
+        return new ColorFormat(Attribute.BRIGHT_GREEN_TEXT());
     }
 
     public static Format BRIGHT_YELLOW_TEXT() {
-        return new ColorFormat(new JColorSimpleAttribute("93"));
+        return new ColorFormat(Attribute.BRIGHT_YELLOW_TEXT());
     }
 
     public static Format BRIGHT_BLUE_TEXT() {
-        return new ColorFormat(new JColorSimpleAttribute("94"));
+        return new ColorFormat(Attribute.BRIGHT_BLUE_TEXT());
     }
 
     public static Format BRIGHT_MAGENTA_TEXT() {
-        return new ColorFormat(new JColorSimpleAttribute("95"));
+        return new ColorFormat(Attribute.BRIGHT_MAGENTA_TEXT());
     }
 
     public static Format BRIGHT_CYAN_TEXT() {
-        return new ColorFormat(new JColorSimpleAttribute("96"));
+        return new ColorFormat(Attribute.BRIGHT_CYAN_TEXT());
     }
 
     public static Format BRIGHT_WHITE_TEXT() {
-        return new ColorFormat(new JColorSimpleAttribute("97"));
+        return new ColorFormat(Attribute.BRIGHT_WHITE_TEXT());
     }
 
     // background bright colors
 
     public static Format BRIGHT_BLACK_BACK() {
-        return new ColorFormat(new JColorSimpleAttribute("100"));
+        return new ColorFormat(Attribute.BRIGHT_BLACK_BACK());
     }
 
     public static Format BRIGHT_RED_BACK() {
-        return new ColorFormat(new JColorSimpleAttribute("101"));
+        return new ColorFormat(Attribute.BRIGHT_RED_BACK());
     }
 
     public static Format BRIGHT_GREEN_BACK() {
-        return new ColorFormat(new JColorSimpleAttribute("102"));
+        return new ColorFormat(Attribute.BRIGHT_GREEN_BACK());
     }
 
     public static Format BRIGHT_YELLOW_BACK() {
-        return new ColorFormat(new JColorSimpleAttribute("103"));
+        return new ColorFormat(Attribute.BRIGHT_YELLOW_BACK());
     }
 
     public static Format BRIGHT_BLUE_BACK() {
-        return new ColorFormat(new JColorSimpleAttribute("104"));
+        return new ColorFormat(Attribute.BRIGHT_BLUE_BACK());
     }
 
     public static Format BRIGHT_MAGENTA_BACK() {
-        return new ColorFormat(new JColorSimpleAttribute("105"));
+        return new ColorFormat(Attribute.BRIGHT_MAGENTA_BACK());
     }
 
     public static Format BRIGHT_CYAN_BACK() {
-        return new ColorFormat(new JColorSimpleAttribute("106"));
+        return new ColorFormat(Attribute.BRIGHT_CYAN_BACK());
     }
 
     public static Format BRIGHT_WHITE_BACK() {
-        return new ColorFormat(new JColorSimpleAttribute("107"));
+        return new ColorFormat(Attribute.BRIGHT_WHITE_BACK());
+    }
+
+    // parameterized colors
+
+    /**
+     * @param colorNumber a number representing an 8-bit color (0-255).
+     */
+    public static Format TEXT_COLOR(int colorNumber) {
+        return new ColorFormat(Attribute.TEXT_COLOR(colorNumber));
+    }
+
+    public static Format TEXT_COLOR(int r, int g, int b) {
+        return new ColorFormat(Attribute.TEXT_COLOR(r, g, b));
+    }
+
+    /**
+     * @param colorNumber a number representing an 8-bit color (0-255).
+     */
+    public static Format BACK_COLOR(int colorNumber) {
+        return new ColorFormat(Attribute.BACK_COLOR(colorNumber));
+    }
+
+    public static Format BACK_COLOR(int r, int g, int b) {
+        return new ColorFormat(Attribute.BACK_COLOR(r, g, b));
     }
 
 }
