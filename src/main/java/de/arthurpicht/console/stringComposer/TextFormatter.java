@@ -33,7 +33,13 @@ public class TextFormatter {
                 .map(format -> (ColorFormat) format)
                 .map(ColorFormat::asJColorAttribute)
                 .toArray(Attribute[]::new);
-        return Ansi.colorize(text.getTextString(), attributes);
+        // a call of Ansi.colorize with an empty attributes array will add PREFIX and POSTFIX control chars.
+        // Hence, we check this.
+        if (attributes.length > 0) {
+            return Ansi.colorize(text.getTextString(), attributes);
+        } else {
+            return text.getTextString();
+        }
     }
 
 }

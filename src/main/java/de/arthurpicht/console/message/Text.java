@@ -17,15 +17,15 @@ public class Text {
         this.formatList = Collections.unmodifiableList(formatList);
     }
 
-    public Text(String textString, Format[] formats) {
+    public Text(String textString, Format... formats) {
         this.textString = textString;
         this.formatList = Collections.unmodifiableList(Arrays.asList(formats));
     }
 
-    public Text(String textString) {
-        this.textString = textString;
-        this.formatList = Collections.unmodifiableList(new ArrayList<>());
-    }
+//    public Text(String textString) {
+//        this.textString = textString;
+//        this.formatList = Collections.unmodifiableList(new ArrayList<>());
+//    }
 
     public String getTextString() {
         return textString;

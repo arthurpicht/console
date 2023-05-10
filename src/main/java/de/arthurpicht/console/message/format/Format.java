@@ -1,6 +1,7 @@
 package de.arthurpicht.console.message.format;
 
 import com.diogonunes.jcolor.Attribute;
+import de.arthurpicht.console.message.format.BlockFormat.Align;
 
 public abstract class Format {
 
@@ -208,6 +209,22 @@ public abstract class Format {
 
     public static Format BACK_COLOR(int r, int g, int b) {
         return new ColorFormat(Attribute.BACK_COLOR(r, g, b));
+    }
+
+    public static Format BLOCK_ALIGN_LEFT(int width) {
+        return BlockFormat.builder(width).build();
+    }
+
+    public static Format BLOCK_ALIGN_CENTER(int width) {
+        return BlockFormat.builder(width).withAlign(Align.CENTER).build();
+    }
+
+    public static Format BLOCK_ALIGN_RIGHT(int width) {
+        return BlockFormat.builder(width).withAlign(Align.RIGHT).build();
+    }
+
+    public static Format BLOCK(int width, Align align, String abbreviationSign) {
+        return new BlockFormat(width, align, abbreviationSign);
     }
 
 }
