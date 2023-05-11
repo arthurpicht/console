@@ -6,54 +6,67 @@ public class BlockFormat extends Format {
 
     public static class Builder {
         private final int width;
-        private BlockFormat.Align align;
+        private Align align;
         private String abbreviationSign;
+        private boolean expandTextEffects;
 
         public Builder(int width) {
             this.width = width;
-            this.align = BlockFormat.Align.LEFT;
+            this.align = Align.LEFT;
             this.abbreviationSign = "";
+            this.expandTextEffects = false;
         }
 
-        public BlockFormat.Builder withAlign(BlockFormat.Align align) {
+        public Builder withAlign(Align align) {
             this.align = align;
             return this;
         }
 
-        public BlockFormat.Builder withAbbreviationSign(String string) {
+        public Builder withAbbreviationSign(String string) {
             this.abbreviationSign = string;
             return this;
         }
 
+        public Builder withExpandedTextEffects() {
+            this.expandTextEffects = true;
+            return this;
+        }
+
         public BlockFormat build() {
-            return new BlockFormat(this.width, this.align, this.abbreviationSign);
+            return new BlockFormat(this.width, this.align, this.abbreviationSign, this.expandTextEffects);
         }
     }
 
     private final int width;
-    private final BlockFormat.Align align;
+    private final Align align;
     private final String abbreviationSign;
+    private final boolean expandTextEffects;
 
     public static Builder builder(int width) {
         return new Builder(width);
     }
 
-    public BlockFormat(int width, BlockFormat.Align align, String abbreviationSign) {
+    public BlockFormat(int width, Align align, String abbreviationSign, boolean expandTextEffects) {
         this.width = width;
         this.align = align;
         this.abbreviationSign = abbreviationSign;
+        this.expandTextEffects = expandTextEffects;
     }
 
     public int getWidth() {
         return this.width;
     }
 
-    public BlockFormat.Align getAlign() {
+    public Align getAlign() {
         return this.align;
     }
 
     public String getAbbreviationSign() {
         return this.abbreviationSign;
+    }
+
+    public boolean isExpandTextEffects() {
+        return this.expandTextEffects;
     }
 
 }

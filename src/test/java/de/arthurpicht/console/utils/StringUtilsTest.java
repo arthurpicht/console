@@ -69,6 +69,44 @@ class StringUtilsTest {
         assertEquals("1234", processed);
     }
 
+    @Test
+    public void overwriteRightSimple() {
+        String string = "12345";
+        String overlay = "**";
+        String processed = StringUtils.overwriteRight(string, overlay);
+        assertEquals("123**", processed);
+    }
 
+    @Test
+    public void overwriteRightSimple2() {
+        String string = "12345";
+        String overlay = "*";
+        String processed = StringUtils.overwriteRight(string, overlay);
+        assertEquals("1234*", processed);
+    }
+
+    @Test
+    public void overwriteRightEmptyOverlay() {
+        String string = "12345";
+        String overlay = "";
+        String processed = StringUtils.overwriteRight(string, overlay);
+        assertEquals("12345", processed);
+    }
+
+    @Test
+    public void overwriteRightBothEmpty() {
+        String string = "";
+        String overlay = "";
+        String processed = StringUtils.overwriteRight(string, overlay);
+        assertEquals("", processed);
+    }
+
+    @Test
+    public void overwriteRightEqualLength() {
+        String string = "123";
+        String overlay = "ABC";
+        String processed = StringUtils.overwriteRight(string, overlay);
+        assertEquals("ABC", processed);
+    }
 
 }

@@ -1,5 +1,6 @@
 package de.arthurpicht.console.utils;
 
+import de.arthurpicht.utils.core.assertion.MethodPreconditions;
 import de.arthurpicht.utils.core.strings.Strings;
 
 import static de.arthurpicht.utils.core.assertion.MethodPreconditions.assertArgumentIsEqualToOrGreaterThanZero;
@@ -70,6 +71,18 @@ public class StringUtils {
         stringBuilder.insert(0, String.valueOf(fillChar).repeat(Math.max(0, nrOfCharsToFillHalf)));
         stringBuilder.append(String.valueOf(fillChar).repeat(Math.max(0, nrOfCharsToFillHalf)));
         return stringBuilder.toString();
+    }
+
+    public static String overwriteRight(String string, String overlay) {
+        assertArgumentNotNull("string", string);
+        assertArgumentNotNull("overlay", overlay);
+        if (overlay.length() > string.length())
+            throw new IllegalArgumentException("Overlay is longer than base string.");
+        if (string.isEmpty() || overlay.isEmpty()) return string;
+
+        int index = string.length() - overlay.length();
+        String firstChunk = string.substring(0, index);
+        return firstChunk + overlay;
     }
 
 }

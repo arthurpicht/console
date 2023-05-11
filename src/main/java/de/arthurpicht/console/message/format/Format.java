@@ -223,8 +223,8 @@ public abstract class Format {
         return BlockFormat.builder(width).withAlign(Align.RIGHT).build();
     }
 
-    public static Format BLOCK(int width, Align align, String abbreviationSign) {
-        return new BlockFormat(width, align, abbreviationSign);
+    public static Format BLOCK(int width, Align align, String abbreviationSign, boolean expandTextEffects) {
+        return new BlockFormat(width, align, abbreviationSign, expandTextEffects);
     }
 
 }
