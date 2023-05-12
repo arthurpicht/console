@@ -23,31 +23,64 @@ public class ConsoleConfigurationBuilder {
         this.loggerDelegatorConfigList = new ArrayList<>();
     }
 
+    /**
+     * Specifies level of console output.
+     * This configuration has no effect to any logger delegation.
+     *
+     * @param level
+     * @return
+     */
     public ConsoleConfigurationBuilder asLevel(Level level) {
         this.level = level;
         return this;
     }
 
+    /**
+     * Colors are suppressed on console.
+     *
+     * @return
+     */
     public ConsoleConfigurationBuilder withSuppressedColors() {
         this.colors = false;
         return this;
     }
 
+    /**
+     * Any control os previously written console messages is ignored, e.g. clearLine.
+     *
+     * @return
+     */
     public ConsoleConfigurationBuilder withPlainOutput() {
         this.plain = true;
         return this;
     }
 
+    /**
+     * Mutes output to console.
+     *
+     * @return
+     */
     public ConsoleConfigurationBuilder withMutedOutput() {
         this.muteOutput = true;
         return this;
     }
 
+    /**
+     * Mutes delegation of console output to loggers.
+     *
+     * @return
+     */
     public ConsoleConfigurationBuilder withMutedLoggerDelegation() {
         this.muteLoggerDelegation = true;
         return this;
     }
 
+    /**
+     * Adds a delegation of console output to slf4j logger by specified name.
+     *
+     * @param loggerName name of sl4j logger
+     * @return
+     */
     public ConsoleConfigurationBuilder addLoggerDelegation(String loggerName) {
         LoggerDelegatorConfig loggerDelegatorConfig = new LoggerDelegatorConfig(loggerName);
         this.loggerDelegatorConfigList.add(loggerDelegatorConfig);
@@ -64,6 +97,5 @@ public class ConsoleConfigurationBuilder {
                 this.muteLoggerDelegation
         );
     }
-
 
 }

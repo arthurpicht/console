@@ -4,21 +4,19 @@ import de.arthurpicht.console.config.ConsoleConfiguration;
 import de.arthurpicht.console.config.ConsoleConfigurationBuilder;
 import de.arthurpicht.console.message.Message;
 import de.arthurpicht.console.message.MessageBuilder;
-import de.arthurpicht.console.stringComposer.StringComposer;
-
-import java.util.Optional;
+import de.arthurpicht.console.message.format.Format;
+import de.arthurpicht.console.processor.MessageProcessor;
 
 import static de.arthurpicht.utils.core.assertion.MethodPreconditions.assertArgumentNotNull;
 
 public class Console {
 
     private static ConsoleConfiguration consoleConfiguration = null;
-    private static StringComposer stringComposer;
+    private static MessageProcessor messageProcessor;
 
     public static void init(ConsoleConfiguration consoleConfiguration) {
         Console.consoleConfiguration = consoleConfiguration;
-        Console.stringComposer = new StringComposer(consoleConfiguration);
-        // TODO
+        Console.messageProcessor = new MessageProcessor(consoleConfiguration);
     }
 
     public static void print(String messageString) {
@@ -28,7 +26,17 @@ public class Console {
                 .addText(messageString)
                 .withNoLineFeed()
                 .build();
-        process(message);
+        messageProcessor.process(message);
+    }
+
+    public static void print(String messageString, Format... formats) {
+        assertArgumentNotNull("messageString", messageString);
+        assureIsInitialized();
+        Message message = new MessageBuilder()
+                .addText(messageString, formats)
+                .withNoLineFeed()
+                .build();
+        messageProcessor.process(message);
     }
 
     public static void println(String messageString) {
@@ -37,25 +45,29 @@ public class Console {
         Message message = new MessageBuilder()
                 .addText(messageString)
                 .build();
-        process(message);
+        messageProcessor.process(message);
+    }
+
+    public static void println(String messageString, Format... formats) {
+        assertArgumentNotNull("messageString", messageString);
+        assureIsInitialized();
+        Message message = new MessageBuilder()
+                .addText(messageString, formats)
+                .build();
+        messageProcessor.process(message);
     }
 
     public static void out(Message message) {
         assertArgumentNotNull("message", message);
         assureIsInitialized();
-        process(message);
+        messageProcessor.process(message);
     }
 
     private static void assureIsInitialized() {
         if (consoleConfiguration == null) {
             Console.consoleConfiguration = new ConsoleConfigurationBuilder().build();
-            Console.stringComposer = new StringComposer(consoleConfiguration);
+            init(consoleConfiguration);
         }
-    }
-
-    private static void process(Message message) {
-        Optional<String> out = stringComposer.compose(message);
-        out.ifPresent(System.out::println);
     }
 
 }

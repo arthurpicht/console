@@ -1,8 +1,7 @@
-package de.arthurpicht.console.stringComposer;
+package de.arthurpicht.console.processor;
 
 import com.diogonunes.jcolor.Ansi;
 import com.diogonunes.jcolor.Attribute;
-import de.arthurpicht.console.config.ConsoleConfiguration;
 import de.arthurpicht.console.message.Text;
 import de.arthurpicht.console.message.format.BlockFormat;
 import de.arthurpicht.console.message.format.ColorFormat;
@@ -15,43 +14,62 @@ import java.util.stream.Collectors;
 
 public class TextFormatter {
 
-    private final ConsoleConfiguration consoleConfiguration;
     private final Text text;
     private final BlockFormat blockFormat;
     private final List<ColorFormat> colorFormatList;
 
-    public TextFormatter(ConsoleConfiguration consoleConfiguration, Text text) {
-        this.consoleConfiguration = consoleConfiguration;
+    private String formattedStringWithColors;
+    private String formattedStringNoColors;
+
+    public TextFormatter(Text text) {
         this.text = text;
         Optional<BlockFormat> blockFormatOptional = getBlockFormat(text);
         this.blockFormat = blockFormatOptional.orElse(null);
         this.colorFormatList = getColorFormatList(text);
+        this.formattedStringWithColors = null;
+        this.formattedStringNoColors = null;
     }
 
-    public String getFormattedString() {
-
-        String blockString = hasBlockFormat() ?
-                fillToBlock(this.text.getTextString(), this.blockFormat) :
-                this.text.getTextString();
-
-        if (this.consoleConfiguration.isColors()) {
-            if (hasBlockFormat() && !this.blockFormat.isExpandTextEffects()) {
-                String colorizedRawString = colorize(this.text.getTextString());
-                return blockString.replace(this.text.getTextString(), colorizedRawString);
-            } else {
-                return colorize(blockString);
-            }
-        } else {
-            return blockString;
-        }
-    }
-
-    private boolean hasBlockFormat() {
+    public boolean hasBlockFormat() {
         return this.blockFormat != null;
     }
 
-    private boolean hasColorFormat() {
+    public boolean hasColorFormat() {
         return !this.colorFormatList.isEmpty();
+    }
+
+    public String getFormattedStringWithColors() {
+        if (this.formattedStringWithColors == null)
+            this.formattedStringWithColors = createFormattedStringWithColors();
+        return this.formattedStringWithColors;
+    }
+
+    public String getFormattedStringNoColors() {
+        if (this.formattedStringNoColors == null)
+            this.formattedStringNoColors = createFormattedStringNoColors();
+        return this.formattedStringNoColors;
+    }
+
+    public String getFormattedString(boolean colorized) {
+        if (colorized) {
+            return getFormattedStringWithColors();
+        } else {
+            return getFormattedStringNoColors();
+        }
+    }
+
+    private String createFormattedStringWithColors() {
+        String blockString = expandToBlock(this.text.getTextString());
+        if (hasBlockFormat() && !this.blockFormat.isExpandTextEffects()) {
+            String colorizedRawString = colorize(this.text.getTextString());
+            return blockString.replace(this.text.getTextString(), colorizedRawString);
+        } else {
+            return colorize(blockString);
+        }
+    }
+
+    private String createFormattedStringNoColors() {
+        return expandToBlock(this.text.getTextString());
     }
 
     private Optional<BlockFormat> getBlockFormat(Text text) {
@@ -85,31 +103,20 @@ public class TextFormatter {
         }
     }
 
-//    private String createBlock(Text text) {
-//        Optional<Format> formatOptional = text.getFormatList().stream()
-//                .filter(format -> format instanceof BlockFormat)
-//                .findFirst();
-//        if (formatOptional.isEmpty()) {
-//            return text.getTextString();
-//        } else {
-//            BlockFormat blockFormat = (BlockFormat) formatOptional.get();
-//            return createBlock(text.getTextString(), blockFormat);
-//        }
-//    }
-
-    private String fillToBlock(String string, BlockFormat blockFormat) {
-        int blockWidth = blockFormat.getWidth();
+    private String expandToBlock(String string) {
+        if (!hasBlockFormat()) return string;
+        int blockWidth = this.blockFormat.getWidth();
         string = string.trim();
         if (string.length() == blockWidth) {
             return string;
         } else if (string.length() > blockWidth) {
             string = Strings.limit(string, blockWidth);
-            String abbreviationSign = Strings.limit(blockFormat.getAbbreviationSign(), blockWidth);
+            String abbreviationSign = Strings.limit(this.blockFormat.getAbbreviationSign(), blockWidth);
             return StringUtils.overwriteRight(string, abbreviationSign);
         } else {
-            if (blockFormat.getAlign() == BlockFormat.Align.RIGHT) {
+            if (this.blockFormat.getAlign() == BlockFormat.Align.RIGHT) {
                 return StringUtils.fillUpLeft(string, ' ', blockWidth);
-            } else if (blockFormat.getAlign() == BlockFormat.Align.LEFT) {
+            } else if (this.blockFormat.getAlign() == BlockFormat.Align.LEFT) {
                 return Strings.fillUpAfter(string, ' ', blockWidth);
             } else {
                 return StringUtils.fillUpLeftAndRight(string, ' ', blockWidth);
