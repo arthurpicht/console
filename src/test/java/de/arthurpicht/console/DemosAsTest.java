@@ -1,23 +1,14 @@
 package de.arthurpicht.console;
 
-import ch.qos.logback.classic.Level;
-import ch.qos.logback.classic.Logger;
-import ch.qos.logback.classic.LoggerContext;
-import ch.qos.logback.classic.encoder.PatternLayoutEncoder;
-import ch.qos.logback.classic.spi.ILoggingEvent;
-import ch.qos.logback.core.ConsoleAppender;
-import ch.qos.logback.core.FileAppender;
 import de.arthurpicht.console.config.ConsoleConfigurationBuilder;
 import de.arthurpicht.console.message.MessageBuilder;
 import de.arthurpicht.console.message.format.BlockFormat;
 import de.arthurpicht.console.message.format.Format;
 import de.arthurpicht.console.testUtils.Logging;
-import de.arthurpicht.console.utils.AnsiCode;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-import org.slf4j.LoggerFactory;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class DemosAsTest {
@@ -93,6 +84,8 @@ public class DemosAsTest {
                 .build());
 
         Console.println("red Text", Format.RED_TEXT());
+
+        Console.initWithDefaults();
     }
 
     @Test

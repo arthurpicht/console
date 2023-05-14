@@ -9,6 +9,8 @@ import de.arthurpicht.console.utils.AnsiCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.PrintStream;
+
 public class MessageProcessor {
 
     private final ConsoleConfiguration consoleConfiguration;
@@ -28,14 +30,16 @@ public class MessageProcessor {
 
     private void processConsoleOutput(Message message) {
         if (!applies(message)) return;
+        PrintStream standardOut = this.consoleConfiguration.getStandardOut();
         if (message.isClearLine() && !this.consoleConfiguration.isPlain())
-            System.out.print(AnsiCode.ERASE_LINE_CONTENT() + AnsiCode.CARRIAGE_RETURN());
+            standardOut.print(AnsiCode.ERASE_LINE_CONTENT() + AnsiCode.CARRIAGE_RETURN());
         String string = this.stringComposer.compose(message, StringComposer.Target.CONSOLE);
         if (message.isLineFeed()) string += "\n";
         if (message.getTarget() == StandardStream.OUT) {
-            System.out.print(string);
+            standardOut.print(string);
         } else {
-            System.err.print(string);
+            PrintStream standardErrorOut = this.consoleConfiguration.getStandardErrorOut();
+            standardErrorOut.print(string);
         }
     }
 

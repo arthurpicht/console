@@ -1,7 +1,5 @@
 package de.arthurpicht.console.message;
 
-import com.diogonunes.jcolor.Ansi;
-import com.diogonunes.jcolor.Attribute;
 import de.arthurpicht.console.message.format.Format;
 
 import java.util.ArrayList;
@@ -50,7 +48,6 @@ public class MessageBuilder {
 
     public MessageBuilder toStandardOut() {
         this.target = StandardStream.OUT;
-        System.out.println(Ansi.colorize("text", Attribute.YELLOW_TEXT()));
         return this;
     }
 

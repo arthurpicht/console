@@ -1,7 +1,5 @@
 package de.arthurpicht.console.utils;
 
-import de.arthurpicht.utils.core.assertion.MethodPreconditions;
-
 import java.util.Arrays;
 
 import static de.arthurpicht.utils.core.assertion.MethodPreconditions.assertArgumentNotNull;

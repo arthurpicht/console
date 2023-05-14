@@ -14,9 +14,13 @@ public class Console {
     private static ConsoleConfiguration consoleConfiguration = null;
     private static MessageProcessor messageProcessor;
 
-    public static void init(ConsoleConfiguration consoleConfiguration) {
+    public static synchronized void init(ConsoleConfiguration consoleConfiguration) {
         Console.consoleConfiguration = consoleConfiguration;
         Console.messageProcessor = new MessageProcessor(consoleConfiguration);
+    }
+
+    public static void initWithDefaults() {
+        init(new ConsoleConfigurationBuilder().build());
     }
 
     public static void print(String messageString) {
@@ -63,7 +67,7 @@ public class Console {
         messageProcessor.process(message);
     }
 
-    private static void assureIsInitialized() {
+    private static synchronized void assureIsInitialized() {
         if (consoleConfiguration == null) {
             Console.consoleConfiguration = new ConsoleConfigurationBuilder().build();
             init(consoleConfiguration);

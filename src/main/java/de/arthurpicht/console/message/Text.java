@@ -2,7 +2,6 @@ package de.arthurpicht.console.message;
 
 import de.arthurpicht.console.message.format.Format;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -21,11 +20,6 @@ public class Text {
         this.textString = textString;
         this.formatList = Collections.unmodifiableList(Arrays.asList(formats));
     }
-
-//    public Text(String textString) {
-//        this.textString = textString;
-//        this.formatList = Collections.unmodifiableList(new ArrayList<>());
-//    }
 
     public String getTextString() {
         return textString;

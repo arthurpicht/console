@@ -1,28 +1,13 @@
 package de.arthurpicht.console.utils;
 
-import de.arthurpicht.utils.core.assertion.MethodPreconditions;
-import de.arthurpicht.utils.core.strings.Strings;
-
 import static de.arthurpicht.utils.core.assertion.MethodPreconditions.assertArgumentIsEqualToOrGreaterThanZero;
 import static de.arthurpicht.utils.core.assertion.MethodPreconditions.assertArgumentNotNull;
 
 public class StringUtils {
 
-    public static boolean isControlCharacter(char c) {
-        return Character.getType(c) == Character.CONTROL;
-    }
-
-    public static int getLengthNonControlCharacters(String string) {
-        int length = 0;
-        for (int i = 0; i < string.length(); i++) {
-            char c = string.charAt(i);
-            if (!isControlCharacter(c)) length++;
-        }
-        return length;
-    }
-
     public static void fillUpLeft(StringBuilder stringBuilder, char fillChar, int minLength) {
         assertArgumentNotNull("stringBuilder", stringBuilder);
+
 
         if (stringBuilder.length() >= minLength) return;
         int nrOfCharsToFill = minLength - stringBuilder.length();
@@ -30,9 +15,9 @@ public class StringUtils {
     }
 
     /**
-     * Füllt den spez. String durch wiederholte Hinzufügung bis zur spez. Länge auf.
-     * Wenn die spez. Länge bereits initial gegeben oder überschritten ist, wird der spez. String
-     * unverändert zurück gegeben.
+     * Füllt den spezifizierten String durch wiederholte Hinzufügung bis zur spezifizierten Länge auf.
+     * Wenn die spezifizierte Länge bereits initial gegeben oder überschritten ist, wird der spezifizierten String
+     * unverändert zurückgegeben.
      *
      * @param string
      * @param fillChar
@@ -55,21 +40,20 @@ public class StringUtils {
         if (string.length() >= minLength) return string;
         int nrOfCharsToFill = minLength - string.length();
 
-        if (CalcUtils.isEven(nrOfCharsToFill)) {
-            return fillUpRightAndLeftSame(string, fillChar, nrOfCharsToFill);
-        } else {
+        if (!CalcUtils.isEven(nrOfCharsToFill)) {
             nrOfCharsToFill = nrOfCharsToFill - 1;
             string = string + fillChar;
             if (string.length() == minLength) return string;
-            return fillUpRightAndLeftSame(string, fillChar, nrOfCharsToFill);
         }
+        return fillUpRightAndLeftSame(string, fillChar, nrOfCharsToFill);
     }
 
     private static String fillUpRightAndLeftSame(String string, char fillChar, int nrOfCharsToFill) {
         int nrOfCharsToFillHalf = nrOfCharsToFill / 2;
         StringBuilder stringBuilder = new StringBuilder(string);
-        stringBuilder.insert(0, String.valueOf(fillChar).repeat(Math.max(0, nrOfCharsToFillHalf)));
-        stringBuilder.append(String.valueOf(fillChar).repeat(Math.max(0, nrOfCharsToFillHalf)));
+        String paddingString = String.valueOf(fillChar).repeat(Math.max(0, nrOfCharsToFillHalf));
+        stringBuilder.insert(0, paddingString);
+        stringBuilder.append(paddingString);
         return stringBuilder.toString();
     }
 

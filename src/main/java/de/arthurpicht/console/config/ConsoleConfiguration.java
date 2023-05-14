@@ -2,6 +2,7 @@ package de.arthurpicht.console.config;
 
 import de.arthurpicht.console.message.Level;
 
+import java.io.PrintStream;
 import java.util.Collections;
 import java.util.List;
 
@@ -13,6 +14,8 @@ public class ConsoleConfiguration {
     private final boolean muteOutput;
     private final boolean muteLoggerDelegation;
     private final List<LoggerDelegatorConfig> loggerDelegatorConfigList;
+    private final PrintStream standardOut;
+    private final PrintStream standardErrorOut;
 
     public ConsoleConfiguration(
             Level level,
@@ -20,13 +23,17 @@ public class ConsoleConfiguration {
             boolean plain,
             boolean muteOutput,
             List<LoggerDelegatorConfig> loggerDelegatorConfigList,
-            boolean muteLoggerDelegation) {
+            boolean muteLoggerDelegation,
+            PrintStream standardOut,
+            PrintStream standardErrorOut) {
         this.level = level;
         this.colors = colors;
         this.plain = plain;
         this.muteOutput = muteOutput;
         this.muteLoggerDelegation = muteLoggerDelegation;
         this.loggerDelegatorConfigList = Collections.unmodifiableList(loggerDelegatorConfigList);
+        this.standardOut = standardOut;
+        this.standardErrorOut = standardErrorOut;
     }
 
     public Level getLevel() {
@@ -51,6 +58,14 @@ public class ConsoleConfiguration {
 
     public List<LoggerDelegatorConfig> getLoggerDelegatorConfigList() {
         return loggerDelegatorConfigList;
+    }
+
+    public PrintStream getStandardOut() {
+        return this.standardOut;
+    }
+
+    public PrintStream getStandardErrorOut() {
+        return this.standardErrorOut;
     }
 
 }
