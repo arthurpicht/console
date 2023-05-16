@@ -1,9 +1,12 @@
 package de.arthurpicht.console.message;
 
 import de.arthurpicht.console.message.format.Format;
+import de.arthurpicht.utils.core.assertion.MethodPreconditions;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static de.arthurpicht.utils.core.assertion.MethodPreconditions.assertArgumentIsEqualToOrGreaterThanZero;
 
 public class MessageBuilder {
 
@@ -12,6 +15,7 @@ public class MessageBuilder {
     private final List<Text> textList;
     private boolean clearLine;
     private boolean lineFeed;
+    private int indentation;
 
     public MessageBuilder() {
         this.level = Level.NORMAL;
@@ -19,6 +23,7 @@ public class MessageBuilder {
         this.textList = new ArrayList<>();
         this.clearLine = false;
         this.lineFeed = true;
+        this.indentation = 0;
     }
 
     public MessageBuilder asVerbose() {
@@ -73,13 +78,19 @@ public class MessageBuilder {
         return this;
     }
 
+    public MessageBuilder withIndentation(int indentation) {
+        this.indentation = indentation;
+        return this;
+    }
+
     public Message build() {
         return new Message(
                 this.level,
                 this.target,
                 this.textList,
                 this.clearLine,
-                this.lineFeed
+                this.lineFeed,
+                this.indentation
         );
     }
 

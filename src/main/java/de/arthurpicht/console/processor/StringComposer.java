@@ -20,6 +20,10 @@ public class StringComposer {
 
     public String compose(Message message, Target target) {
         List<String> formattedTextStrings = new ArrayList<>();
+        if (message.hasIndentation()) {
+            String indentString = getIndentation(message.getIndentation());
+            formattedTextStrings.add(indentString);
+        }
         for (Text text : message.getTextList()) {
             TextFormatter textFormatter = new TextFormatter(text);
             boolean colorization = determineColorization(textFormatter, target);
@@ -27,6 +31,10 @@ public class StringComposer {
             formattedTextStrings.add(formattedString);
         }
         return Strings.concat(formattedTextStrings);
+    }
+
+    private String getIndentation(int indentation) {
+        return " ".repeat(indentation);
     }
 
     private boolean determineColorization(TextFormatter textFormatter, Target target) {

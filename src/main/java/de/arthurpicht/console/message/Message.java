@@ -3,6 +3,8 @@ package de.arthurpicht.console.message;
 import java.util.Collections;
 import java.util.List;
 
+import static de.arthurpicht.utils.core.assertion.MethodPreconditions.assertArgumentIsEqualToOrGreaterThanZero;
+
 public class Message {
 
     private final Level level;
@@ -10,20 +12,24 @@ public class Message {
     private final List<Text> textList;
     private final boolean clearLine;
     private final boolean lineFeed;
+    private final int indentation;
 
     public Message(
             Level level,
             StandardStream target,
             List<Text> textList,
             boolean clearLine,
-            boolean lineFeed
+            boolean lineFeed,
+            int indentation
 
     ) {
+        assertArgumentIsEqualToOrGreaterThanZero("indentation", indentation);
         this.level = level;
         this.target = target;
         this.textList = Collections.unmodifiableList(textList);
         this.clearLine = clearLine;
         this.lineFeed = lineFeed;
+        this.indentation = indentation;
     }
 
     public Level getLevel() {
@@ -44,5 +50,13 @@ public class Message {
 
     public boolean isLineFeed() {
         return lineFeed;
+    }
+
+    public boolean hasIndentation() {
+        return this.indentation > 0;
+    }
+
+    public int getIndentation() {
+        return this.indentation;
     }
 }

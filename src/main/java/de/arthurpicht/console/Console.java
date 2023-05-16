@@ -52,6 +52,10 @@ public class Console {
         messageProcessor.process(message);
     }
 
+    public static void println() {
+        println("");
+    }
+
     public static void println(String messageString, Format... formats) {
         assertArgumentNotNull("messageString", messageString);
         assureIsInitialized();
