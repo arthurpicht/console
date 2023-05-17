@@ -134,4 +134,43 @@ class TextFormatterTest {
         System.out.println(TestUtils.asByteInitializationLiteral(formattedText));
     }
 
+    @Test
+    public void blockOverflowLimit() {
+        Text text = new Text(
+                "This is an overflowing text. It will exceed the specified width.",
+                Format.BLOCK(20, BlockFormat.Align.LEFT, false, BlockFormat.OverflowStrategy.LIMIT, "~")
+        );
+
+        TextFormatter textFormatter = new TextFormatter(text);
+        String string = textFormatter.getFormattedString(false);
+
+        assertEquals("This is an overflowi", string);
+    }
+
+    @Test
+    public void blockOverflowAbbreviation() {
+        Text text = new Text(
+                "This is an overflowing text. It will exceed the specified width.",
+                Format.BLOCK(20, BlockFormat.Align.LEFT, false, BlockFormat.OverflowStrategy.ABBREVIATE, "~")
+        );
+
+        TextFormatter textFormatter = new TextFormatter(text);
+        String string = textFormatter.getFormattedString(false);
+
+        assertEquals("This is an overflow~", string);
+    }
+
+    @Test
+    public void blockOverflowExpand() {
+        Text text = new Text(
+                "This is an overflowing text. It will exceed the specified width.",
+                Format.BLOCK(20, BlockFormat.Align.LEFT, false, BlockFormat.OverflowStrategy.EXPAND, "~")
+        );
+
+        TextFormatter textFormatter = new TextFormatter(text);
+        String string = textFormatter.getFormattedString(false);
+
+        assertEquals("This is an overflowing text. It will exceed the specified width.", string);
+    }
+
 }

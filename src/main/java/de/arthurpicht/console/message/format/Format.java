@@ -223,8 +223,16 @@ public abstract class Format {
         return BlockFormat.builder(width).withAlign(Align.RIGHT).build();
     }
 
-    public static Format BLOCK(int width, Align align, String abbreviationSign, boolean expandTextEffects) {
-        return new BlockFormat(width, align, abbreviationSign, expandTextEffects);
+    public static Format BLOCK_ABBREVIATED(int width, String abbreviationSign) {
+        return BlockFormat.builder(width).withAbbreviationSign(abbreviationSign).build();
+    }
+
+    public static Format BLOCK_EXPANDED(int width) {
+        return BlockFormat.builder(width).withOverflowStrategy(BlockFormat.OverflowStrategy.EXPAND).build();
+    }
+
+    public static Format BLOCK(int width, Align align, boolean expandTextEffects, BlockFormat.OverflowStrategy overflowStrategy, String abbreviationSign) {
+        return new BlockFormat(width, align, expandTextEffects, overflowStrategy, abbreviationSign);
     }
 
 }

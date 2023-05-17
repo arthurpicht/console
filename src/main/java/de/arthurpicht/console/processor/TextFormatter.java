@@ -4,6 +4,7 @@ import com.diogonunes.jcolor.Ansi;
 import com.diogonunes.jcolor.Attribute;
 import de.arthurpicht.console.message.Text;
 import de.arthurpicht.console.message.format.BlockFormat;
+import de.arthurpicht.console.message.format.BlockFormat.OverflowStrategy;
 import de.arthurpicht.console.message.format.ColorFormat;
 import de.arthurpicht.console.utils.StringUtils;
 import de.arthurpicht.utils.core.strings.Strings;
@@ -110,7 +111,10 @@ public class TextFormatter {
         if (string.length() == blockWidth) {
             return string;
         } else if (string.length() > blockWidth) {
+            OverflowStrategy overflowStrategy = this.blockFormat.getOverflowStrategy();
+            if (overflowStrategy == OverflowStrategy.EXPAND) return string;
             string = Strings.limit(string, blockWidth);
+            if (overflowStrategy == OverflowStrategy.LIMIT) return string;
             String abbreviationSign = Strings.limit(this.blockFormat.getAbbreviationSign(), blockWidth);
             return StringUtils.overwriteRight(string, abbreviationSign);
         } else {
