@@ -6,8 +6,8 @@ import de.arthurpicht.console.message.Level;
 import de.arthurpicht.console.message.Message;
 import de.arthurpicht.console.message.StandardStream;
 import de.arthurpicht.console.utils.AnsiCode;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 
 import java.io.PrintStream;
 
@@ -44,27 +44,27 @@ public class MessageProcessor {
     }
 
     private void processLoggerOutput(Message message) {
-        if (this.consoleConfiguration.getLoggerDelegatorConfigList().isEmpty()) return;
-        org.slf4j.event.Level loggerLevel = getLoggerLevel(message);
-        String string = this.stringComposer.compose(message, StringComposer.Target.LOGGER);
-        if (!message.isLineFeed()) string += "<truncated>";
-        for (LoggerDelegatorConfig loggerDelegatorConfig : this.consoleConfiguration.getLoggerDelegatorConfigList()) {
-            Logger logger = LoggerFactory.getLogger(loggerDelegatorConfig.getLoggerName());
-            if (message.isClearLine())
-                logger.atLevel(loggerLevel).log("<last line deleted>");
-            logger.atLevel(loggerLevel).log(string);
-        }
+//        if (this.consoleConfiguration.getLoggerDelegatorConfigList().isEmpty()) return;
+//        org.slf4j.event.Level loggerLevel = getLoggerLevel(message);
+//        String string = this.stringComposer.compose(message, StringComposer.Target.LOGGER);
+//        if (!message.isLineFeed()) string += "<truncated>";
+//        for (LoggerDelegatorConfig loggerDelegatorConfig : this.consoleConfiguration.getLoggerDelegatorConfigList()) {
+//            Logger logger = LoggerFactory.getLogger(loggerDelegatorConfig.getLoggerName());
+//            if (message.isClearLine())
+//                logger.atLevel(loggerLevel).log("<last line deleted>");
+//            logger.atLevel(loggerLevel).log(string);
+//        }
     }
 
     private boolean applies(Message message) {
         return Level.applies(message.getLevel(), this.consoleConfiguration.getLevel());
     }
 
-    private org.slf4j.event.Level getLoggerLevel(Message message) {
-        if (message.getTarget() == StandardStream.ERROR) return org.slf4j.event.Level.ERROR;
-        if (message.getLevel() == Level.VERBOSE) return org.slf4j.event.Level.DEBUG;
-        if (message.getLevel() == Level.VERY_VERY_VERBOSE) return org.slf4j.event.Level.TRACE;
-        return org.slf4j.event.Level.INFO;
-    }
+//    private org.slf4j.event.Level getLoggerLevel(Message message) {
+//        if (message.getTarget() == StandardStream.ERROR) return org.slf4j.event.Level.ERROR;
+//        if (message.getLevel() == Level.VERBOSE) return org.slf4j.event.Level.DEBUG;
+//        if (message.getLevel() == Level.VERY_VERY_VERBOSE) return org.slf4j.event.Level.TRACE;
+//        return org.slf4j.event.Level.INFO;
+//    }
 
 }
