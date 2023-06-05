@@ -79,13 +79,13 @@ public class DemosAsTest {
     public void simpleColoredLineWithLoggerDelegation() {
         Logging.initLoggerToConsole("CONSOLE");
 
-        Console.init(new ConsoleConfigurationBuilder()
+        Console.configure(new ConsoleConfigurationBuilder()
                 .addLoggerDelegation("CONSOLE")
                 .build());
 
         Console.println("red Text", Format.RED_TEXT());
 
-        Console.initWithDefaults();
+        Console.configureWithDefaults();
     }
 
     @Test

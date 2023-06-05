@@ -6,7 +6,6 @@ import de.arthurpicht.console.message.Text;
 import de.arthurpicht.console.message.format.BlockFormat;
 import de.arthurpicht.console.message.format.BlockFormat.OverflowStrategy;
 import de.arthurpicht.console.message.format.ColorFormat;
-import de.arthurpicht.console.utils.StringUtils;
 import de.arthurpicht.utils.core.strings.Strings;
 
 import java.util.List;
@@ -116,14 +115,14 @@ public class TextFormatter {
             string = Strings.limit(string, blockWidth);
             if (overflowStrategy == OverflowStrategy.LIMIT) return string;
             String abbreviationSign = Strings.limit(this.blockFormat.getAbbreviationSign(), blockWidth);
-            return StringUtils.overwriteRight(string, abbreviationSign);
+            return Strings.overwriteRight(string, abbreviationSign);
         } else {
             if (this.blockFormat.getAlign() == BlockFormat.Align.RIGHT) {
-                return StringUtils.fillUpLeft(string, ' ', blockWidth);
+                return Strings.fillUpLeft(string, ' ', blockWidth);
             } else if (this.blockFormat.getAlign() == BlockFormat.Align.LEFT) {
-                return Strings.fillUpAfter(string, ' ', blockWidth);
+                return Strings.fillUpRight(string, ' ', blockWidth);
             } else {
-                return StringUtils.fillUpLeftAndRight(string, ' ', blockWidth);
+                return Strings.fillUpLeftAndRight(string, ' ', blockWidth);
             }
         }
     }

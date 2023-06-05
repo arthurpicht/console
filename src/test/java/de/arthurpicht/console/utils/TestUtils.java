@@ -1,5 +1,6 @@
 package de.arthurpicht.console.utils;
 
+import de.arthurpicht.utils.core.array.ArrayUtils;
 import de.arthurpicht.utils.core.strings.Strings;
 
 import java.nio.charset.StandardCharsets;
