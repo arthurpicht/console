@@ -3,7 +3,7 @@ plugins {
 }
 
 group 'com.github.arthurpicht'
-version '0.1.4'
+version '0.1.5-no_log'
 
 java {
     toolchain {
@@ -18,12 +18,12 @@ repositories {
 
 dependencies {
 
-    implementation 'com.github.arthurpicht:utils-core:1.11.0'
+    implementation 'com.github.arthurpicht:utils-core:1.13.0'
     implementation 'com.diogonunes:JColor:5.5.1'
 
     testImplementation 'ch.qos.logback:logback-classic:1.4.7'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.3'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.3'
 }
 
 test {
