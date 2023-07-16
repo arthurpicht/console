@@ -98,4 +98,11 @@ public class DemosAsTest {
                 .build());
     }
 
+    @Test
+    @Order(9)
+    public void printStackTrace() {
+        RuntimeException runtimeException = new RuntimeException("A sample RuntimeException.");
+        Console.printStackTrace(runtimeException);
+    }
+
 }
