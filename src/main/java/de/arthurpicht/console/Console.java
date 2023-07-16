@@ -8,6 +8,9 @@ import de.arthurpicht.console.message.MessageBuilder;
 import de.arthurpicht.console.message.format.Format;
 import de.arthurpicht.console.processor.MessageProcessor;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
 import static de.arthurpicht.utils.core.assertion.MethodPreconditions.assertArgumentNotNull;
 
 @SuppressWarnings("unused")
@@ -216,6 +219,20 @@ public class Console {
                 .addText(messageString, formats)
                 .toErrorStream()
                 .withNoLineFeed()
+                .build();
+        messageProcessor.process(message);
+    }
+
+    public static void printStackTrace(Throwable throwable) {
+        assertArgumentNotNull("throwable", throwable);
+        assureIsConfigured();
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        throwable.printStackTrace(pw);
+        String messageString = sw.toString();
+        Message message = new MessageBuilder()
+                .addText(messageString)
+                .toErrorStream()
                 .build();
         messageProcessor.process(message);
     }

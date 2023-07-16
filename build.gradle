@@ -3,7 +3,7 @@ plugins {
 }
 
 group 'com.github.arthurpicht'
-version '0.1.5-no_log'
+version '0.1.6-no_log'
 
 java {
     toolchain {
