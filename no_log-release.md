@@ -19,6 +19,12 @@ Vorgehen:
 
 1. Änderungen im Code vom develop-branch in den no_log-branch mergen.
 Achtung: nicht die build.gradle Datei mergen.
+
+    Änderungen in einzelnen Dateien können z.B. so gepatcht werden
+   (Ausführung in branch no_log):
+
+        git checkout --patch develop /path/to/file
+
 2. In der Klasse MessageProcessor in Inhalt der Method processLoggerOutput,
 die Methode getLoggerLevel und alle SLF4J imports kommentieren.
 3. Von dieser Version release bauen. In der Releasebezeichnung die
