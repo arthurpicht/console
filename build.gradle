@@ -3,13 +3,7 @@ plugins {
 }
 
 group 'com.github.arthurpicht'
-version '0.1.6'
-
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(11)
-    }
-}
+version '0.1.7-SNAPSHOT'
 
 repositories {
     mavenCentral()
