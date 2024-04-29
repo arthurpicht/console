@@ -1,6 +1,7 @@
 package de.arthurpicht.console.config;
 
 import de.arthurpicht.console.message.Level;
+import de.arthurpicht.console.messageChannel.MessageChannel;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -12,8 +13,8 @@ public class ConsoleConfigurationBuilder {
     private boolean colors;
     private boolean plain;
     private boolean muteOutput;
-    private boolean muteLoggerDelegation;
-    private final List<LoggerDelegatorConfig> loggerDelegatorConfigList;
+    private boolean muteMessageChannelling;
+    private final List<MessageChannel> messageChannelList;
     private PrintStream standardOut;
     private PrintStream standardErrorOut;
 
@@ -22,8 +23,8 @@ public class ConsoleConfigurationBuilder {
         this.colors = true;
         this.plain = false;
         this.muteOutput = false;
-        this.muteLoggerDelegation = false;
-        this.loggerDelegatorConfigList = new ArrayList<>();
+        this.muteMessageChannelling = false;
+        this.messageChannelList = new ArrayList<>();
         this.standardOut = System.out;
         this.standardErrorOut = System.err;
     }
@@ -32,8 +33,7 @@ public class ConsoleConfigurationBuilder {
      * Specifies level of console output.
      * This configuration has no effect to any logger delegation.
      *
-     * @param level
-     * @return
+     * @param level level of console output
      */
     public ConsoleConfigurationBuilder asLevel(Level level) {
         this.level = level;
@@ -42,8 +42,6 @@ public class ConsoleConfigurationBuilder {
 
     /**
      * Colors are suppressed on console.
-     *
-     * @return
      */
     public ConsoleConfigurationBuilder withSuppressedColors() {
         this.colors = false;
@@ -52,8 +50,6 @@ public class ConsoleConfigurationBuilder {
 
     /**
      * Any control os previously written console messages is ignored, e.g. clearLine.
-     *
-     * @return
      */
     public ConsoleConfigurationBuilder withPlainOutput() {
         this.plain = true;
@@ -62,8 +58,6 @@ public class ConsoleConfigurationBuilder {
 
     /**
      * Mutes output to console.
-     *
-     * @return
      */
     public ConsoleConfigurationBuilder withMutedOutput() {
         this.muteOutput = true;
@@ -71,24 +65,20 @@ public class ConsoleConfigurationBuilder {
     }
 
     /**
-     * Mutes delegation of console output to loggers.
-     *
-     * @return
+     * Mutes channelling of console output.
      */
-    public ConsoleConfigurationBuilder withMutedLoggerDelegation() {
-        this.muteLoggerDelegation = true;
+    public ConsoleConfigurationBuilder withMutedChannelling() {
+        this.muteMessageChannelling = true;
         return this;
     }
 
     /**
-     * Adds a delegation of console output to slf4j logger by specified name.
+     * Adds a channel of console output.
      *
-     * @param loggerName name of sl4j logger
-     * @return
+     * @param messageChannel MessageChannel implementation
      */
-    public ConsoleConfigurationBuilder addLoggerDelegation(String loggerName) {
-        LoggerDelegatorConfig loggerDelegatorConfig = new LoggerDelegatorConfig(loggerName);
-        this.loggerDelegatorConfigList.add(loggerDelegatorConfig);
+    public ConsoleConfigurationBuilder addMessageChannel(MessageChannel messageChannel) {
+        this.messageChannelList.add(messageChannel);
         return this;
     }
 
@@ -108,8 +98,8 @@ public class ConsoleConfigurationBuilder {
                 this.colors,
                 this.plain,
                 this.muteOutput,
-                this.loggerDelegatorConfigList,
-                this.muteLoggerDelegation,
+                this.messageChannelList,
+                this.muteMessageChannelling,
                 this.standardOut,
                 this.standardErrorOut
         );

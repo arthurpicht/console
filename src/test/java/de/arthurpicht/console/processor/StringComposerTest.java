@@ -17,8 +17,8 @@ class StringComposerTest {
                 .addText("Hello world!")
                 .build();
 
-        StringComposer stringComposer = new StringComposer(consoleConfiguration);
-        String string = stringComposer.compose(message, StringComposer.Target.CONSOLE);
+        StringComposer stringComposer = new StringComposer(true);
+        String string = stringComposer.compose(message);
 
         assertEquals("Hello world!", string);
     }
@@ -31,8 +31,8 @@ class StringComposerTest {
                 .addText("Hello world!")
                 .build();
 
-        StringComposer stringComposer = new StringComposer(consoleConfiguration);
-        String string = stringComposer.compose(message, StringComposer.Target.CONSOLE);
+        StringComposer stringComposer = new StringComposer(true);
+        String string = stringComposer.compose(message);
 
         assertEquals("  Hello world!", string);
     }

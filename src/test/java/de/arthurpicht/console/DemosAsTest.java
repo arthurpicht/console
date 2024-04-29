@@ -4,7 +4,7 @@ import de.arthurpicht.console.config.ConsoleConfigurationBuilder;
 import de.arthurpicht.console.message.MessageBuilder;
 import de.arthurpicht.console.message.format.BlockFormat;
 import de.arthurpicht.console.message.format.Format;
-import de.arthurpicht.console.testUtils.Logging;
+//import de.arthurpicht.console.testUtils.Logging;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -74,19 +74,19 @@ public class DemosAsTest {
         Console.println("some third text");
     }
 
-    @Test
-    @Order(7)
-    public void simpleColoredLineWithLoggerDelegation() {
-        Logging.initLoggerToConsole("CONSOLE");
-
-        Console.configure(new ConsoleConfigurationBuilder()
-                .addLoggerDelegation("CONSOLE")
-                .build());
-
-        Console.println("red Text", Format.RED_TEXT());
-
-        Console.configureWithDefaults();
-    }
+//    @Test
+//    @Order(7)
+//    public void simpleColoredLineWithLoggerDelegation() {
+//        Logging.initLoggerToConsole("CONSOLE");
+//
+//        Console.configure(new ConsoleConfigurationBuilder()
+//                .addLoggerDelegation("CONSOLE")
+//                .build());
+//
+//        Console.println("red Text", Format.RED_TEXT());
+//
+//        Console.configureWithDefaults();
+//    }
 
     @Test
     @Order(8)
