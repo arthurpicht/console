@@ -9,10 +9,7 @@ import java.util.List;
 
 public class StringComposer {
 
-//    public enum Target { CONSOLE, LOGGER }
-
     private final boolean colorization;
-//    private final ConsoleConfiguration consoleConfiguration;
 
     public StringComposer(boolean colorization) {
         this.colorization = colorization;
@@ -26,7 +23,6 @@ public class StringComposer {
         }
         for (Text text : message.getTextList()) {
             TextFormatter textFormatter = new TextFormatter(text);
-//            boolean colorization = determineColorization(textFormatter, target);
             String formattedString = textFormatter.getFormattedString(this.colorization && textFormatter.hasColorFormat());
             formattedTextStrings.add(formattedString);
         }
@@ -36,11 +32,5 @@ public class StringComposer {
     private String getIndentation(int indentation) {
         return " ".repeat(indentation);
     }
-
-//    private boolean determineColorization(TextFormatter textFormatter, Target target) {
-////        if (target == Target.LOGGER) return false;
-//        if (!this.consoleConfiguration.isColors()) return false;
-//        return textFormatter.hasColorFormat();
-//    }
 
 }

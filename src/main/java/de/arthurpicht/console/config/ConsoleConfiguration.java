@@ -12,8 +12,7 @@ public class ConsoleConfiguration {
     private final Level level;
     private final boolean colors;
     private final boolean plain;
-    private final boolean muteOutput;
-    private final boolean muteMessageChannelling;
+    private final boolean mute;
     private final List<MessageChannel> messageChannelList;
     private final PrintStream standardOut;
     private final PrintStream standardErrorOut;
@@ -22,16 +21,14 @@ public class ConsoleConfiguration {
             Level level,
             boolean colors,
             boolean plain,
-            boolean muteOutput,
+            boolean mute,
             List<MessageChannel> messageChannelList,
-            boolean muteMessageChannelling,
             PrintStream standardOut,
             PrintStream standardErrorOut) {
         this.level = level;
         this.colors = colors;
         this.plain = plain;
-        this.muteOutput = muteOutput;
-        this.muteMessageChannelling = muteMessageChannelling;
+        this.mute = mute;
         this.messageChannelList = Collections.unmodifiableList(messageChannelList);
         this.standardOut = standardOut;
         this.standardErrorOut = standardErrorOut;
@@ -49,12 +46,8 @@ public class ConsoleConfiguration {
         return plain;
     }
 
-    public boolean isMuteOutput() {
-        return muteOutput;
-    }
-
-    public boolean isMuteMessageChannelling() {
-        return muteMessageChannelling;
+    public boolean isMute() {
+        return mute;
     }
 
     public List<MessageChannel> getMessageChannelList() {

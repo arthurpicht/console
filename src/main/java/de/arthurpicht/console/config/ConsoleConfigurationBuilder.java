@@ -13,7 +13,6 @@ public class ConsoleConfigurationBuilder {
     private boolean colors;
     private boolean plain;
     private boolean muteOutput;
-    private boolean muteMessageChannelling;
     private final List<MessageChannel> messageChannelList;
     private PrintStream standardOut;
     private PrintStream standardErrorOut;
@@ -23,7 +22,6 @@ public class ConsoleConfigurationBuilder {
         this.colors = true;
         this.plain = false;
         this.muteOutput = false;
-        this.muteMessageChannelling = false;
         this.messageChannelList = new ArrayList<>();
         this.standardOut = System.out;
         this.standardErrorOut = System.err;
@@ -31,7 +29,6 @@ public class ConsoleConfigurationBuilder {
 
     /**
      * Specifies level of console output.
-     * This configuration has no effect to any logger delegation.
      *
      * @param level level of console output
      */
@@ -49,7 +46,7 @@ public class ConsoleConfigurationBuilder {
     }
 
     /**
-     * Any control os previously written console messages is ignored, e.g. clearLine.
+     * Any control characters are ignored, e.g. clearLine.
      */
     public ConsoleConfigurationBuilder withPlainOutput() {
         this.plain = true;
@@ -57,18 +54,11 @@ public class ConsoleConfigurationBuilder {
     }
 
     /**
-     * Mutes output to console.
+     * Mutes output to console. This has no effect to potentially specified channels. Those have an own
+     * flag for muting.
      */
     public ConsoleConfigurationBuilder withMutedOutput() {
         this.muteOutput = true;
-        return this;
-    }
-
-    /**
-     * Mutes channelling of console output.
-     */
-    public ConsoleConfigurationBuilder withMutedChannelling() {
-        this.muteMessageChannelling = true;
         return this;
     }
 
@@ -99,7 +89,6 @@ public class ConsoleConfigurationBuilder {
                 this.plain,
                 this.muteOutput,
                 this.messageChannelList,
-                this.muteMessageChannelling,
                 this.standardOut,
                 this.standardErrorOut
         );

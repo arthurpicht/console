@@ -1,10 +1,11 @@
 package de.arthurpicht.console.messageChannel.fileChannel;
 
-import de.arthurpicht.console.config.ConsoleConfiguration;
+import de.arthurpicht.console.Console;
 import de.arthurpicht.console.message.Level;
 import de.arthurpicht.console.message.Message;
 import de.arthurpicht.console.messageChannel.MessageChannel;
 import de.arthurpicht.console.processor.StringComposer;
+import de.arthurpicht.utils.io.nio2.FileUtils;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -16,21 +17,17 @@ import java.time.format.DateTimeFormatter;
 public class FileChannel implements MessageChannel {
 
     private final FileChannelConfiguration fileChannelConfiguration;
-    private final Level level;
     private final StringComposer stringComposer;
 
-    public FileChannel(FileChannelConfiguration fileChannelConfiguration, ConsoleConfiguration consoleConfiguration) {
+    public FileChannel(FileChannelConfiguration fileChannelConfiguration) {
         this.fileChannelConfiguration = fileChannelConfiguration;
         assertParentDirectoryExists(fileChannelConfiguration.file());
-        this.level = fileChannelConfiguration.level() != null ?
-                        fileChannelConfiguration.level() :
-                        consoleConfiguration.getLevel();
+        assureFileExists(fileChannelConfiguration.file());
         this.stringComposer = new StringComposer(false);
     }
 
     @Override
     public void process(Message message) {
-        if (this.fileChannelConfiguration.isMuted()) return;
         if (!applies(message)) return;
         String string = "";
         if (this.fileChannelConfiguration.writeTimestamp())
@@ -38,12 +35,16 @@ public class FileChannel implements MessageChannel {
         if (this.fileChannelConfiguration.writeLevel())
             string += getLevelTag(message.getLevel());
         if (message.isClearLine()) {
-            string += "<last line deleted>";
-        } else {
-            string += this.stringComposer.compose(message);
-            if (!message.isLineFeed()) string += "<truncated>";
+            write("<last line deleted>\n");
         }
+        string += this.stringComposer.compose(message);
+        if (!message.isLineFeed()) string += "<truncated>";
         write(string + "\n");
+    }
+
+    @Override
+    public boolean isMuted() {
+        return this.fileChannelConfiguration.isMuted();
     }
 
     private void write(String message) {
@@ -60,13 +61,26 @@ public class FileChannel implements MessageChannel {
     }
 
     private void assertParentDirectoryExists(Path file) {
-        if (!Files.exists(file) || !Files.isDirectory(file)) {
+        Path parentDirectory = file.getParent();
+        if (!FileUtils.isExistingDirectory(parentDirectory)) {
             throw new RuntimeException("File [" + file + "] does not exist or is not a directory");
         }
     }
 
+    private void assureFileExists(Path file) {
+        try {
+            if (!Files.exists(file))
+                Files.createFile(file);
+        } catch (IOException e) {
+            throw new RuntimeException("Error on creating file [" + file + "]: " + e.getMessage(), e);
+        }
+    }
+
     private boolean applies(Message message) {
-        return Level.applies(message.getLevel(), this.level);
+        Level level = fileChannelConfiguration.hasLevel() ?
+                fileChannelConfiguration.level() :
+                Console.getConfiguration().getLevel();
+        return Level.applies(message.getLevel(), level);
     }
 
     private String getCurrentTimestamp() {

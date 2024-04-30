@@ -11,4 +11,9 @@ public record FileChannelConfiguration(
         boolean writeTimestamp,
         boolean writeLevel
 ) {
+
+    public boolean hasLevel() {
+        return this.level != null;
+    }
+
 }

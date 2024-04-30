@@ -1,12 +1,8 @@
 package de.arthurpicht.console.message;
 
 import de.arthurpicht.console.message.format.Format;
-import de.arthurpicht.utils.core.assertion.MethodPreconditions;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import static de.arthurpicht.utils.core.assertion.MethodPreconditions.assertArgumentIsEqualToOrGreaterThanZero;
 
 public class MessageBuilder {
 

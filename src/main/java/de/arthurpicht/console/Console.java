@@ -237,6 +237,11 @@ public class Console {
         messageProcessor.process(message);
     }
 
+    public static ConsoleConfiguration getConfiguration() {
+        assureIsConfigured();
+        return consoleConfiguration;
+    }
+
     private static synchronized void assureIsConfigured() {
         if (consoleConfiguration == null) {
             Console.consoleConfiguration = new ConsoleConfigurationBuilder().build();

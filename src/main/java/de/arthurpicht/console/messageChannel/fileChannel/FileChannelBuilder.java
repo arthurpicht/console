@@ -4,7 +4,8 @@ import de.arthurpicht.console.message.Level;
 
 import java.nio.file.Path;
 
-public class FileChannelConfigurationBuilder {
+@SuppressWarnings("unused")
+public class FileChannelBuilder {
 
     private Path file = null;
     private boolean isMuted = false;
@@ -12,46 +13,47 @@ public class FileChannelConfigurationBuilder {
     private boolean writeTimestamp = false;
     private boolean writeLevel = false;
 
-    public FileChannelConfigurationBuilder withFile(Path file) {
+    public FileChannelBuilder withFile(Path file) {
         this.file = file;
         return this;
     }
 
-    public FileChannelConfigurationBuilder withMuted(boolean isMuted) {
+    public FileChannelBuilder withMuted(boolean isMuted) {
         this.isMuted = isMuted;
         return this;
     }
 
-    public FileChannelConfigurationBuilder withLevel(Level level) {
+    public FileChannelBuilder withLevel(Level level) {
         this.level = level;
         return this;
     }
 
-    public FileChannelConfigurationBuilder withLevelInheritedFromConsoleConfiguration() {
+    public FileChannelBuilder withLevelInheritedFromConsoleConfiguration() {
         this.level = null;
         return this;
     }
 
-    public FileChannelConfigurationBuilder withWriteTimestamp() {
+    public FileChannelBuilder withWriteTimestamp() {
         this.writeTimestamp = true;
         return this;
     }
 
-    public FileChannelConfigurationBuilder withWriteLevel() {
+    public FileChannelBuilder withWriteLevel() {
         this.writeLevel = true;
         return this;
     }
 
-    public FileChannelConfiguration build() {
+    public FileChannel build() {
         if (this.file == null)
             throw new IllegalStateException("Parameter [file] has not been set.");
-        return new FileChannelConfiguration(
+        FileChannelConfiguration fileChannelConfiguration = new FileChannelConfiguration(
                 this.file,
                 this.isMuted,
                 this.level,
                 this.writeTimestamp,
                 this.writeLevel
         );
+        return new FileChannel(fileChannelConfiguration);
     }
 
 }
