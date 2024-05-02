@@ -3,6 +3,7 @@ package de.arthurpicht.console.message.format;
 import com.diogonunes.jcolor.Attribute;
 import de.arthurpicht.console.message.format.BlockFormat.Align;
 
+@SuppressWarnings("unused")
 public abstract class Format {
 
     // text effects

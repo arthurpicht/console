@@ -1,32 +1,173 @@
 # arthurpicht/console
 
-High-level java functionality for writing to text console
+High-level java functionality for writing to text console. Intended to
+support rich CLI applications.
 
 Features:
 
 * text-effects (e.g. bold, italic ...)
 * colorization
 * formatting
-* 3 levels of output verbosity
-* delegation to slf4j logger
+* 4 levels of output verbosity
+* writing console messages to file
+* extensible message processing functionality
+* delegating console messages to slf4j by extension
 * highly programmatically configurable 
 
-## Programmatic configuration
+## Usage
 
-Configuration of Console can be done by calling *Console.init()*.
-If not, default values are applied.
+### Hello World
+
+A simple substitution for `System.out.println`:
+
+    Console.println("Hello world!");
+
+Write a line in red color:
+
+    Console.println("Text in RED.", Format.RED_TEXT);
+
+Write with bright yellow background and bold:
+
+    Console.println("With bright yellow background and bold.", Format.BOLD, Format.BRIGHT_YELLOW_BACK);
+
+The same as before but now centered in a block with a width of 25 characters:
+
+```java
+Console.out(new MessageBuilder()
+        .addText("With bright yellow background and bold.",
+                Format.RED_TEXT(), Format.BRIGHT_YELLOW_BACK(),
+                BlockFormat.builder(25)
+                        .withAlign(BlockFormat.Align.CENTER)
+                        .withExpandedTextEffects()
+                        .build())
+        .build());
+```
+
+### Configuring Console
+
+First configure Console at the entry point of the application. If not done so,
+a default configuration will be applied. Then call `Console` methods to
+write to console instead of `System.out` or `System.err`.
+
+```java
+ConsoleConfiguration consoleConfiguration = new ConsoleConfigurationBuilder()
+        .asLevel(Level.VERBOSE)
+        .withPlainOutput(false)
+        .withSuppressedColors(false)
+        .withMutedOutput(false)
+        .build();
+Console.configure(consoleConfiguration);
+```
+
+Available Parameters:
+
+* **level** (Level): Level of console output. Default: NORMAL.
+* **suppressedColor** (boolean): No color will be applied.
+* **plain** (boolean): No control characters will be applied.
+* **mutedOutput** (boolean): Output will be muted.
+* **addMessageChannel** (MessageChannel): A `MessageChannel` implementation will be added.
+* **standardOutput** (PrintStream): PrintStream to be written to. Default: System.out.
+* **standardError** (PrintStream): PrintStream to be written to for error message: System.err.
+
+### Console methods
+
+The `Console` class consists of two types of methods:
+
+#### print methods
+
+`Console` methods beginning with `print` accept plain string objects and optionally one
+or more `Format` declarations. There are such print methods for all levels of verbosity
+and also a generic method that accepts the verbosity level as a parameter.
+Based on `System.out.print` and `System.out.println` respectively `System.error` there
+are corresponding `print` and `println` methods, e.g. `printlnVerbose`.  
+
+#### out method
+
+The `Console.out` method accepts an object of type `Message` an allows for printing out
+fine-grained message definitions. A message consists of one or more text chunks, each with
+it own format definition.
 
 Example:
 
 ```java
-Console.init(new ConsoleConfigurationBuilder()
-    .addLoggerDelegation("CONSOLE") 
-    .withSuppressedColors()        
-    .build());
+Console.out(new MessageBuilder()
+        .addText("First text.", Format.RED_TEXT())
+        .addText("This text in red.",
+                Format.RED_TEXT(), Format.BRIGHT_YELLOW_BACK(),
+                BlockFormat.builder(25)
+                        .withAlign(BlockFormat.Align.CENTER)
+                        .withExpandedTextEffects()
+                        .build())
+        .addText("normal again")
+        .build());
 ```
+
+### printStackTrace
+
+Simply prints stackTrace. Example:
+
+     Console.printStackTrace(e);
+
+### Format definitions
+
+There are four types of format definitions:
+
+1. text effects: e.g. bold, italic
+2. text colors
+3. text background colors
+4. text block definitions with alignments
+
+Text colors can be specified by predefined constants or by color number or respectively by
+rgb-codes.
+
+See class `de.arthurpicht.console.message.format.Format` for more infos.
+
+### Verbosity levels
+
+There are four levels of verbosity: `REGULAR`, `VERBOSE`, `VERY_VERBOSE`, `VERY_VERY_VERBOSE`.
+Similar to the use in logger applications, a console message on level `VERBOSE` will only be
+shown, if `Console` is configured for at least `VERBOSE` level.
+
+The output to the error stream occurs regardless of any configuration of verbosity level. 
+
 See `ConsoleConfigurationBuilder` for a full list of configuration parameters, documentation and default values.
 
-## Usage
+### FileChannel
+
+Console can be configured to write messages to a file. This can be achieved by configuring a
+FileChannel. Use the `FileChannelBuilder` to build `FileChannel` object and add it to
+`ConsoleConfiguration` like this:
+
+```java
+FileChannel fileChannel = new FileChannelBuilder()
+        .withFile(Paths.get("myFile.log"))
+        .build();
+ConsoleConfiguration consoleConfiguration = new ConsoleConfigurationBuilder()
+        .addMessageChannel(fileChannel)
+        .build();
+
+Console.println("This message will apear on console and will also be written to file.");
+```
+
+`FileChannel` has the following parameters:
+
+* **file** (Path): Path to file. Mandatory.
+* **muted** (boolean): mute output. Default: false.
+* **level** (Level): verbosity level in which should be outputted. Default: Level is inherited
+from Console configuration.
+* **writeTimestamp** (boolean): add Timestamp to each line
+* **writeLevel** (boolean): add level name to each line
+
+See `de.arthurpicht.console.messageChannel.fileChannel.FileChannelBuilder` for more infos.
+
+### Extensions
+
+The processing of console messages can be realized by implementing the interface
+`de.arthurpicht.console.messageChannel.MessageChannel`. See project 
+[arthurpicht/console-to-slf4j](https://github.com/arthurpicht/console-to-slf4j)
+as an example.
+
+## Demos
 
 See test case `DemosAsTest` for some demos.
 

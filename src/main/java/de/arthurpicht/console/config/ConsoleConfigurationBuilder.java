@@ -7,6 +7,7 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class ConsoleConfigurationBuilder {
 
     private Level level;
@@ -46,10 +47,26 @@ public class ConsoleConfigurationBuilder {
     }
 
     /**
+     * Specify if colors will be suppressed.
+     */
+    public ConsoleConfigurationBuilder withSuppressedColors(boolean suppressedColors) {
+        this.colors = !suppressedColors;
+        return this;
+    }
+
+    /**
      * Any control characters are ignored, e.g. clearLine.
      */
     public ConsoleConfigurationBuilder withPlainOutput() {
         this.plain = true;
+        return this;
+    }
+
+    /**
+     * Specify if any control characters are ignored.
+     */
+    public ConsoleConfigurationBuilder withPlainOutput(boolean plainOutput) {
+        this.plain = plainOutput;
         return this;
     }
 
@@ -63,6 +80,14 @@ public class ConsoleConfigurationBuilder {
     }
 
     /**
+     * Specify if output is muted.
+     */
+    public ConsoleConfigurationBuilder withMutedOutput(boolean mutedOutput) {
+        this.muteOutput = mutedOutput;
+        return this;
+    }
+
+    /**
      * Adds a channel of console output.
      *
      * @param messageChannel MessageChannel implementation
@@ -72,11 +97,17 @@ public class ConsoleConfigurationBuilder {
         return this;
     }
 
+    /**
+     * Redirect standard output to specified PrintStream.
+     */
     public ConsoleConfigurationBuilder withStandardOut(PrintStream printStream) {
         this.standardOut = printStream;
         return this;
     }
 
+    /**
+     * Redirect standard error to specified PrintStream.
+     */
     public ConsoleConfigurationBuilder withStandardErrorOut(PrintStream printStream) {
         this.standardErrorOut = printStream;
         return this;

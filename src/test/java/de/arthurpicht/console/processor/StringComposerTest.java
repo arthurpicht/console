@@ -12,7 +12,6 @@ class StringComposerTest {
 
     @Test
     void compose_no_indent() {
-        ConsoleConfiguration consoleConfiguration = new ConsoleConfigurationBuilder().build();
         Message message = new MessageBuilder()
                 .addText("Hello world!")
                 .build();
@@ -25,7 +24,6 @@ class StringComposerTest {
 
     @Test
     void compose_indent() {
-        ConsoleConfiguration consoleConfiguration = new ConsoleConfigurationBuilder().build();
         Message message = new MessageBuilder()
                 .withIndentation(2)
                 .addText("Hello world!")
