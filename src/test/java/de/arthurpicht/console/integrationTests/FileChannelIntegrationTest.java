@@ -49,8 +49,8 @@ public class FileChannelIntegrationTest {
         assertTrue(FileUtils.isExistingRegularFile(logFile));
         List<String> lines = TextFileUtils.readLinesAsStrings(logFile);
         assertEquals(2, lines.size());
-        assertEquals("Hello World! (simple)", lines.getFirst());
-        assertEquals("A second line. (simple)", lines.getLast());
+        assertEquals("Hello World! (simple)", lines.get(0));
+        assertEquals("A second line. (simple)", lines.get(1));
     }
 
     @Test
@@ -77,10 +77,10 @@ public class FileChannelIntegrationTest {
         assertTrue(FileUtils.isExistingRegularFile(logFile));
         List<String> lines = TextFileUtils.readLinesAsStrings(logFile);
         assertEquals(2, lines.size());
-        assertTrue(TestUtils.beginsWithTimestamp(lines.getFirst()));
-        assertEquals("Hello World! (Timestamp)", lines.getFirst().substring(20));
-        assertTrue(TestUtils.beginsWithTimestamp(lines.getLast()));
-        assertEquals("A second line. (Timestamp)", lines.getLast().substring(20));
+        assertTrue(TestUtils.beginsWithTimestamp(lines.get(0)));
+        assertEquals("Hello World! (Timestamp)", lines.get(0).substring(20));
+        assertTrue(TestUtils.beginsWithTimestamp(lines.get(1)));
+        assertEquals("A second line. (Timestamp)", lines.get(1).substring(20));
     }
 
 
@@ -110,10 +110,10 @@ public class FileChannelIntegrationTest {
         assertTrue(FileUtils.isExistingRegularFile(logFile));
         List<String> lines = TextFileUtils.readLinesAsStrings(logFile);
         assertEquals(2, lines.size());
-        assertTrue(TestUtils.beginsWithTimestamp(lines.getFirst()));
-        assertEquals("[NORMAL] Hello World! (TimestampAndLevel)", lines.getFirst().substring(20));
-        assertTrue(TestUtils.beginsWithTimestamp(lines.getLast()));
-        assertEquals("[VERBOSE] A second line. (TimestampAndLevel)", lines.getLast().substring(20));
+        assertTrue(TestUtils.beginsWithTimestamp(lines.get(0)));
+        assertEquals("[NORMAL] Hello World! (TimestampAndLevel)", lines.get(0).substring(20));
+        assertTrue(TestUtils.beginsWithTimestamp(lines.get(1)));
+        assertEquals("[VERBOSE] A second line. (TimestampAndLevel)", lines.get(1).substring(20));
     }
 
 }

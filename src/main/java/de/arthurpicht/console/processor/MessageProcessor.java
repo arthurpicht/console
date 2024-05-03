@@ -14,7 +14,7 @@ public class MessageProcessor {
 
     public MessageProcessor(ConsoleConfiguration consoleConfiguration) {
         List<MessageChannel> messageChannelList = new ArrayList<>(consoleConfiguration.getMessageChannelList());
-        messageChannelList.addFirst(new ConsoleChannel(consoleConfiguration));
+        messageChannelList.add(0, new ConsoleChannel(consoleConfiguration));
         this.messageChannels = messageChannelList;
     }
 
