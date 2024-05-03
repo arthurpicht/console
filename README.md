@@ -36,7 +36,8 @@ The same as before but now centered in a block with a width of 25 characters:
 Console.out(new MessageBuilder()
         .addText("With bright yellow background and bold.",
                 Format.RED_TEXT(), Format.BRIGHT_YELLOW_BACK(),
-                BlockFormat.builder(25)
+                new BlockFormat.Builder()
+                        .withWidth(25)
                         .withAlign(BlockFormat.Align.CENTER)
                         .withExpandedTextEffects()
                         .build())
@@ -51,7 +52,7 @@ write to console instead of `System.out` or `System.err`.
 
 ```java
 ConsoleConfiguration consoleConfiguration = new ConsoleConfigurationBuilder()
-        .asLevel(Level.VERBOSE)
+        .withLevel(Level.VERBOSE)
         .withPlainOutput(false)
         .withSuppressedColors(false)
         .withMutedOutput(false)
@@ -71,7 +72,7 @@ Available Parameters:
 
 ### Console methods
 
-The `Console` class consists of two types of methods:
+The `Console` class consists of three types of methods:
 
 #### print methods
 
@@ -94,7 +95,8 @@ Console.out(new MessageBuilder()
         .addText("First text.", Format.RED_TEXT())
         .addText("This text in red.",
                 Format.RED_TEXT(), Format.BRIGHT_YELLOW_BACK(),
-                BlockFormat.builder(25)
+                new BlockFormat.Builder()
+                        .withWidth(25)
                         .withAlign(BlockFormat.Align.CENTER)
                         .withExpandedTextEffects()
                         .build())
@@ -131,6 +133,52 @@ shown, if `Console` is configured for at least `VERBOSE` level.
 The output to the error stream occurs regardless of any configuration of verbosity level. 
 
 See `ConsoleConfigurationBuilder` for a full list of configuration parameters, documentation and default values.
+
+### MessageBuilder
+
+For the output of some rather simple messages, using `Console.print...` methods may be sufficient.
+However, in order to fully utilize the possible functionality, the usage of the `MessageBuilder` is required.
+
+Example:
+
+```java
+new MessageBuilder()
+    .addText("|", Format.BOLD())
+    .addText("1234567890abcdefghijklmnopqrstuvwxyz",
+        Format.RED_TEXT(), Format.BRIGHT_YELLOW_BACK(),
+        new BlockFormat.Builder()
+            .withWidth(10)
+            .withAbbreviationSign("...")
+            .build())
+    .addText("|", Format.BOLD())
+    .build()
+```
+
+`MessageBuilder` has the following methods:
+
+* ***asNormal()***, ***asVerbose()***, ***asVeryVerbose()***, ***asVeryVeryVerbose()***, ***asLevel(Level level)***: specify verbosity level, default: NORMAL
+* ***toStandardOut()***, ***toErrorStream()***: destination stream, default: standard out
+* ***addText(String text, Format format)***
+* ***clearLine()***: previously written text on current line will be overwritten
+* ***withNoLineFeed()***: no line feed will be executed after message, default: perform line feed
+* ***withIndentation(int inden)***: number of spaces to be used as leading indentation, default: 0.
+
+### BlockFormat
+
+A `BlockFormat` is a subtype of `Format` which allows for building text blocks with a fixed sized width.
+The text can be aligned within the block. Furthermore, text with excess length can be shortened and
+a trailing abbreviation sign can optionally be inserted.
+
+Methods of `BlockFormat.Builder`:
+
+* ***withWidth(int i)***: width of text block, mandatory
+* ***withAlign(Align align)***: align for text positioning in block, default: Align.LEFT
+* ***withAbbreviationSign(String string)***: specify string that will be inserted at the end of the shortened string,
+in case string exceeds width.
+* ***withExpandedTextEffects()***: lets text effects (especially background colors) be applied to the full width
+including leading and trailing spaces
+* ***withOverflowStrategy(OverflowStrategy overflowStrategy)***: specifies strategy how to deal with exceeding text.
+default: LIMIT
 
 ### FileChannel
 

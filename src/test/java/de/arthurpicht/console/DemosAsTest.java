@@ -39,7 +39,8 @@ public class DemosAsTest {
                 .addText("First text.", Format.RED_TEXT())
                 .addText("Hello world!",
                         Format.RED_TEXT(), Format.BRIGHT_YELLOW_BACK(),
-                        BlockFormat.builder(25)
+                        new BlockFormat.Builder()
+                                .withWidth(25)
                                 .withAlign(BlockFormat.Align.CENTER)
                                 .withExpandedTextEffects()
                                 .build())
@@ -54,7 +55,8 @@ public class DemosAsTest {
                 .addText("|", Format.BOLD())
                 .addText("1234567890abcdefghijklmnopqrstuvwxyz",
                         Format.RED_TEXT(), Format.BRIGHT_YELLOW_BACK(),
-                        BlockFormat.builder(10)
+                        new BlockFormat.Builder()
+                                .withWidth(10)
                                 .withAbbreviationSign("...")
                                 .build())
                 .addText("|", Format.BOLD())

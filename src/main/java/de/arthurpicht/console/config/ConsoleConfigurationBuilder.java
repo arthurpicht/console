@@ -33,13 +33,13 @@ public class ConsoleConfigurationBuilder {
      *
      * @param level level of console output
      */
-    public ConsoleConfigurationBuilder asLevel(Level level) {
+    public ConsoleConfigurationBuilder withLevel(Level level) {
         this.level = level;
         return this;
     }
 
     /**
-     * Colors are suppressed on console.
+     * Colors and text effects (bold, italic, ...) are suppressed on console.
      */
     public ConsoleConfigurationBuilder withSuppressedColors() {
         this.colors = false;

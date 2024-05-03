@@ -22,6 +22,11 @@ public class MessageBuilder {
         this.indentation = 0;
     }
 
+    public MessageBuilder asNormal() {
+        this.level = Level.NORMAL;
+        return this;
+    }
+
     public MessageBuilder asVerbose() {
         this.level = Level.VERBOSE;
         return this;
@@ -52,11 +57,11 @@ public class MessageBuilder {
         return this;
     }
 
-    public MessageBuilder addText(String textString) {
-        Text text = new Text(textString);
-        this.textList.add(text);
-        return this;
-    }
+//    public MessageBuilder addText(String textString) {
+//        Text text = new Text(textString);
+//        this.textList.add(text);
+//        return this;
+//    }
 
     public MessageBuilder addText(String textString, Format... formats) {
         Text text = new Text(textString, formats);

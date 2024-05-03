@@ -11,3 +11,6 @@
 * removed deprecated methods from class Console:
     * init(): use configure() instead
     * initWithDefaults(): user configureWithDefaults instead
+* ConfigurationBuilder: asLevel() -> withLevel()
+* BlockFormat.builder(int width) - > new BlockFormatBuilder().withWidth(int width)
+* 

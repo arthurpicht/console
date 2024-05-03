@@ -137,13 +137,7 @@ public class Console {
      * @param formats       text effects
      */
     public static void printlnVerbose(String messageString, Format... formats) {
-        assertArgumentNotNull("messageString", messageString);
-        assureIsConfigured();
-        Message message = new MessageBuilder()
-                .addText(messageString, formats)
-                .asLevel(Level.VERBOSE)
-                .build();
-        messageProcessor.process(message);
+        println(Level.VERBOSE, messageString, formats);
     }
 
     /**
@@ -153,7 +147,7 @@ public class Console {
      * @param formats       text effects
      */
     public static void verbose(String messageString, Format... formats) {
-        printlnVerbose(messageString, formats);
+        println(Level.VERBOSE, messageString, formats);
     }
 
     /**
@@ -163,14 +157,7 @@ public class Console {
      * @param formats       text effects
      */
     public static void printVerbose(String messageString, Format... formats) {
-        assertArgumentNotNull("messageString", messageString);
-        assureIsConfigured();
-        Message message = new MessageBuilder()
-                .addText(messageString, formats)
-                .asLevel(Level.VERBOSE)
-                .withNoLineFeed()
-                .build();
-        messageProcessor.process(message);
+        print(Level.VERBOSE, messageString, formats);
     }
 
     /**
@@ -180,13 +167,7 @@ public class Console {
      * @param formats       text effects
      */
     public static void printlnVeryVerbose(String messageString, Format... formats) {
-        assertArgumentNotNull("messageString", messageString);
-        assureIsConfigured();
-        Message message = new MessageBuilder()
-                .addText(messageString, formats)
-                .asLevel(Level.VERY_VERBOSE)
-                .build();
-        messageProcessor.process(message);
+        println(Level.VERY_VERBOSE, messageString, formats);
     }
 
     /**
@@ -196,7 +177,7 @@ public class Console {
      * @param formats       text effects
      */
     public static void veryVerbose(String messageString, Format... formats) {
-        printlnVeryVerbose(messageString, formats);
+        println(Level.VERY_VERBOSE, messageString, formats);
     }
 
     /**
@@ -206,14 +187,7 @@ public class Console {
      * @param messageString message text
      */
     public static void printVeryVerbose(String messageString, Format... formats) {
-        assertArgumentNotNull("messageString", messageString);
-        assureIsConfigured();
-        Message message = new MessageBuilder()
-                .addText(messageString, formats)
-                .asLevel(Level.VERY_VERBOSE)
-                .withNoLineFeed()
-                .build();
-        messageProcessor.process(message);
+        print(Level.VERY_VERBOSE, messageString, formats);
     }
 
     /**
@@ -223,13 +197,7 @@ public class Console {
      * @param formats       text effects
      */
     public static void printlnVeryVeryVerbose(String messageString, Format... formats) {
-        assertArgumentNotNull("messageString", messageString);
-        assureIsConfigured();
-        Message message = new MessageBuilder()
-                .addText(messageString, formats)
-                .asLevel(Level.VERY_VERY_VERBOSE)
-                .build();
-        messageProcessor.process(message);
+        println(Level.VERY_VERY_VERBOSE, messageString, formats);
     }
 
     /**
@@ -239,7 +207,7 @@ public class Console {
      * @param formats       text effects
      */
     public static void veryVeryVerbose(String messageString, Format... formats) {
-        printlnVeryVeryVerbose(messageString, formats);
+        println(Level.VERY_VERY_VERBOSE, messageString, formats);
     }
 
     /**
@@ -249,14 +217,7 @@ public class Console {
      * @param messageString message text
      */
     public static void printVeryVeryVerbose(String messageString, Format... formats) {
-        assertArgumentNotNull("messageString", messageString);
-        assureIsConfigured();
-        Message message = new MessageBuilder()
-                .addText(messageString, formats)
-                .asLevel(Level.VERY_VERY_VERBOSE)
-                .withNoLineFeed()
-                .build();
-        messageProcessor.process(message);
+        print(Level.VERY_VERY_VERBOSE, messageString, formats);
     }
 
     /**

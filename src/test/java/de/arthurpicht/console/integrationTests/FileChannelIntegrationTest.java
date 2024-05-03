@@ -1,20 +1,20 @@
-package de.arthurpicht.console.messageChannel.fileChannel;
+package de.arthurpicht.console.integrationTests;
 
 import de.arthurpicht.console.Console;
 import de.arthurpicht.console.config.ConsoleConfiguration;
 import de.arthurpicht.console.config.ConsoleConfigurationBuilder;
 import de.arthurpicht.console.message.Level;
+import de.arthurpicht.console.messageChannel.fileChannel.FileChannel;
+import de.arthurpicht.console.messageChannel.fileChannel.FileChannelBuilder;
 import de.arthurpicht.console.utils.TestUtils;
 import de.arthurpicht.utils.io.file.TextFileUtils;
 import de.arthurpicht.utils.io.nio2.FileUtils;
 import de.arthurpicht.utils.io.tempDir.TempDir;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -114,16 +114,6 @@ public class FileChannelIntegrationTest {
         assertEquals("[NORMAL] Hello World! (TimestampAndLevel)", lines.getFirst().substring(20));
         assertTrue(TestUtils.beginsWithTimestamp(lines.getLast()));
         assertEquals("[VERBOSE] A second line. (TimestampAndLevel)", lines.getLast().substring(20));
-    }
-
-    void ex() {
-        ConsoleConfiguration consoleConfiguration = new ConsoleConfigurationBuilder()
-                .asLevel(Level.VERBOSE)
-                .withPlainOutput(false)
-                .withSuppressedColors(false)
-                .withMutedOutput(false)
-                .build();
-        Console.configure(consoleConfiguration);
     }
 
 }

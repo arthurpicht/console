@@ -1,5 +1,6 @@
-package de.arthurpicht.console;
+package de.arthurpicht.console.integrationTests;
 
+import de.arthurpicht.console.Console;
 import de.arthurpicht.console.config.ConsoleConfigurationBuilder;
 import de.arthurpicht.console.message.format.Format;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,7 +11,7 @@ import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class IntegrationTest {
+public class FormatIntegrationTest {
 
     @BeforeEach
     public void resetConfiguration() {
