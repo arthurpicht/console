@@ -1,6 +1,7 @@
 package de.arthurpicht.console.config;
 
 import de.arthurpicht.console.message.Level;
+import de.arthurpicht.console.messageChannel.MessageChannel;
 
 import java.io.PrintStream;
 import java.util.Collections;
@@ -11,9 +12,8 @@ public class ConsoleConfiguration {
     private final Level level;
     private final boolean colors;
     private final boolean plain;
-    private final boolean muteOutput;
-    private final boolean muteLoggerDelegation;
-    private final List<LoggerDelegatorConfig> loggerDelegatorConfigList;
+    private final boolean mute;
+    private final List<MessageChannel> messageChannelList;
     private final PrintStream standardOut;
     private final PrintStream standardErrorOut;
 
@@ -21,17 +21,15 @@ public class ConsoleConfiguration {
             Level level,
             boolean colors,
             boolean plain,
-            boolean muteOutput,
-            List<LoggerDelegatorConfig> loggerDelegatorConfigList,
-            boolean muteLoggerDelegation,
+            boolean mute,
+            List<MessageChannel> messageChannelList,
             PrintStream standardOut,
             PrintStream standardErrorOut) {
         this.level = level;
         this.colors = colors;
         this.plain = plain;
-        this.muteOutput = muteOutput;
-        this.muteLoggerDelegation = muteLoggerDelegation;
-        this.loggerDelegatorConfigList = Collections.unmodifiableList(loggerDelegatorConfigList);
+        this.mute = mute;
+        this.messageChannelList = Collections.unmodifiableList(messageChannelList);
         this.standardOut = standardOut;
         this.standardErrorOut = standardErrorOut;
     }
@@ -48,16 +46,12 @@ public class ConsoleConfiguration {
         return plain;
     }
 
-    public boolean isMuteOutput() {
-        return muteOutput;
+    public boolean isMute() {
+        return mute;
     }
 
-    public boolean isMuteLoggerDelegation() {
-        return muteLoggerDelegation;
-    }
-
-    public List<LoggerDelegatorConfig> getLoggerDelegatorConfigList() {
-        return loggerDelegatorConfigList;
+    public List<MessageChannel> getMessageChannelList() {
+        return messageChannelList;
     }
 
     public PrintStream getStandardOut() {

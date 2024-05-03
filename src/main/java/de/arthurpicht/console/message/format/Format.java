@@ -3,6 +3,7 @@ package de.arthurpicht.console.message.format;
 import com.diogonunes.jcolor.Attribute;
 import de.arthurpicht.console.message.format.BlockFormat.Align;
 
+@SuppressWarnings("unused")
 public abstract class Format {
 
     // text effects
@@ -212,23 +213,23 @@ public abstract class Format {
     }
 
     public static Format BLOCK_ALIGN_LEFT(int width) {
-        return BlockFormat.builder(width).build();
+        return new BlockFormat.Builder().withWidth(width).build();
     }
 
     public static Format BLOCK_ALIGN_CENTER(int width) {
-        return BlockFormat.builder(width).withAlign(Align.CENTER).build();
+        return new BlockFormat.Builder().withWidth(width).withAlign(Align.CENTER).build();
     }
 
     public static Format BLOCK_ALIGN_RIGHT(int width) {
-        return BlockFormat.builder(width).withAlign(Align.RIGHT).build();
+        return new BlockFormat.Builder().withWidth(width).withAlign(Align.RIGHT).build();
     }
 
     public static Format BLOCK_ABBREVIATED(int width, String abbreviationSign) {
-        return BlockFormat.builder(width).withAbbreviationSign(abbreviationSign).build();
+        return new BlockFormat.Builder().withWidth(width).withAbbreviationSign(abbreviationSign).build();
     }
 
     public static Format BLOCK_EXPANDED(int width) {
-        return BlockFormat.builder(width).withOverflowStrategy(BlockFormat.OverflowStrategy.EXPAND).build();
+        return new BlockFormat.Builder().withWidth(width).withOverflowStrategy(BlockFormat.OverflowStrategy.EXPAND).build();
     }
 
     public static Format BLOCK(int width, Align align, boolean expandTextEffects, BlockFormat.OverflowStrategy overflowStrategy, String abbreviationSign) {

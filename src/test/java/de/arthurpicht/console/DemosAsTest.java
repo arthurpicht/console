@@ -1,10 +1,8 @@
 package de.arthurpicht.console;
 
-import de.arthurpicht.console.config.ConsoleConfigurationBuilder;
 import de.arthurpicht.console.message.MessageBuilder;
 import de.arthurpicht.console.message.format.BlockFormat;
 import de.arthurpicht.console.message.format.Format;
-import de.arthurpicht.console.testUtils.Logging;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -41,7 +39,8 @@ public class DemosAsTest {
                 .addText("First text.", Format.RED_TEXT())
                 .addText("Hello world!",
                         Format.RED_TEXT(), Format.BRIGHT_YELLOW_BACK(),
-                        BlockFormat.builder(25)
+                        new BlockFormat.Builder()
+                                .withWidth(25)
                                 .withAlign(BlockFormat.Align.CENTER)
                                 .withExpandedTextEffects()
                                 .build())
@@ -56,7 +55,8 @@ public class DemosAsTest {
                 .addText("|", Format.BOLD())
                 .addText("1234567890abcdefghijklmnopqrstuvwxyz",
                         Format.RED_TEXT(), Format.BRIGHT_YELLOW_BACK(),
-                        BlockFormat.builder(10)
+                        new BlockFormat.Builder()
+                                .withWidth(10)
                                 .withAbbreviationSign("...")
                                 .build())
                 .addText("|", Format.BOLD())
@@ -76,20 +76,6 @@ public class DemosAsTest {
 
     @Test
     @Order(7)
-    public void simpleColoredLineWithLoggerDelegation() {
-        Logging.initLoggerToConsole("CONSOLE");
-
-        Console.configure(new ConsoleConfigurationBuilder()
-                .addLoggerDelegation("CONSOLE")
-                .build());
-
-        Console.println("red Text", Format.RED_TEXT());
-
-        Console.configureWithDefaults();
-    }
-
-    @Test
-    @Order(8)
     public void deleteLine() {
         Console.print("Some text that will be deleted ... .... very long ..... !");
         Console.out(new MessageBuilder()
@@ -99,7 +85,7 @@ public class DemosAsTest {
     }
 
     @Test
-    @Order(9)
+    @Order(8)
     public void printStackTrace() {
         RuntimeException runtimeException = new RuntimeException("A sample RuntimeException.");
         Console.printStackTrace(runtimeException);

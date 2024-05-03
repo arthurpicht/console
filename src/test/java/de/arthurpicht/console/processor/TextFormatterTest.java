@@ -76,7 +76,8 @@ class TextFormatterTest {
         Text text = new Text(
                 "Hello world!",
                 Format.RED_TEXT(), Format.BRIGHT_YELLOW_BACK(),
-                BlockFormat.builder(25)
+                new BlockFormat.Builder()
+                        .withWidth(25)
                         .withAlign(BlockFormat.Align.CENTER)
                         .withExpandedTextEffects()
                         .build());
@@ -97,7 +98,8 @@ class TextFormatterTest {
         Text text = new Text(
                 "Hello world!",
                 Format.RED_TEXT(), Format.BRIGHT_YELLOW_BACK(),
-                BlockFormat.builder(25)
+                new BlockFormat.Builder()
+                        .withWidth(25)
                         .withAlign(BlockFormat.Align.RIGHT)
                         .withExpandedTextEffects()
                         .build());
@@ -118,7 +120,8 @@ class TextFormatterTest {
         Text text = new Text(
                 "Hello world!",
                 Format.RED_TEXT(), Format.BRIGHT_YELLOW_BACK(),
-                BlockFormat.builder(25)
+                new BlockFormat.Builder()
+                        .withWidth(25)
                         .withAlign(BlockFormat.Align.LEFT)
                         .withExpandedTextEffects()
                         .build());

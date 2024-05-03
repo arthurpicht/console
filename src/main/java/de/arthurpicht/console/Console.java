@@ -19,29 +19,24 @@ public class Console {
     private static ConsoleConfiguration consoleConfiguration = null;
     private static MessageProcessor messageProcessor;
 
+    /**
+     * Configure console functionality. This method should be called at the entry point
+     * of the application. If this method is not called before the first usage of Console
+     * methods that prints messages a default configuration is established.
+     *
+     * @param consoleConfiguration console configuration
+     */
     public static synchronized void configure(ConsoleConfiguration consoleConfiguration) {
         Console.consoleConfiguration = consoleConfiguration;
         Console.messageProcessor = new MessageProcessor(consoleConfiguration);
     }
 
     /**
-     * Use method configure instead.
+     * Configure console functionality with default configuration. Like {@link #configure(ConsoleConfiguration)}
+     * this method should also be called at the entry point of the application. A default configuration is
+     * established anyway, if no configuration is done.
      */
-    @Deprecated
-    public static synchronized void init(ConsoleConfiguration consoleConfiguration) {
-        configure(consoleConfiguration);
-    }
-
-    public static void configureWithDefaults() {
-        configure(new ConsoleConfigurationBuilder().build());
-    }
-
-
-    /**
-     * Use configureWithDefaults instead.
-     */
-    @Deprecated
-    public static void initWithDefaults() {
+    public static synchronized void configureWithDefaults() {
         configure(new ConsoleConfigurationBuilder().build());
     }
 
@@ -59,10 +54,45 @@ public class Console {
     }
 
     /**
+     * Prints message without line feed for specified level and optionally specified formats.
+     *
+     * @param level level
+     * @param messageString message text
+     * @param formats text effects
+     */
+    public static void print(Level level, String messageString, Format... formats) {
+        assertArgumentNotNull("messageString", messageString);
+        assureIsConfigured();
+        Message message = new MessageBuilder()
+                .addText(messageString, formats)
+                .asLevel(level)
+                .withNoLineFeed()
+                .build();
+        messageProcessor.process(message);
+    }
+
+    /**
+     * Prints message for specified level and optionally specified formats.
+     *
+     * @param level level
+     * @param messageString message text
+     * @param formats text effects
+     */
+    public static void println(Level level, String messageString, Format... formats) {
+        assertArgumentNotNull("messageString", messageString);
+        assureIsConfigured();
+        Message message = new MessageBuilder()
+                .addText(messageString, formats)
+                .asLevel(level)
+                .build();
+        messageProcessor.process(message);
+    }
+
+    /**
      * Prints a message to console with level NORMAL without line feed applying optional format specifications.
      *
      * @param messageString message text
-     * @param formats format specifications
+     * @param formats       text effects
      */
     public static void print(String messageString, Format... formats) {
         assertArgumentNotNull("messageString", messageString);
@@ -75,17 +105,21 @@ public class Console {
     }
 
     /**
-     * Prints an empty message line to console.
+     * Prints an empty message line.
      */
     public static void println() {
-        println("");
+        assureIsConfigured();
+        Message message = new MessageBuilder()
+                .addText("")
+                .build();
+        messageProcessor.process(message);
     }
 
     /**
      * Prints a message line to console with level NORMAL without line feed applying optional format specifications.
      *
      * @param messageString message text
-     * @param formats format specifications
+     * @param formats       text effects;
      */
     public static void println(String messageString, Format... formats) {
         assertArgumentNotNull("messageString", messageString);
@@ -100,46 +134,50 @@ public class Console {
      * Prints a message line with level VERBOSE to console applying optional format specifications.
      *
      * @param messageString message text
+     * @param formats       text effects
+     */
+    public static void printlnVerbose(String messageString, Format... formats) {
+        println(Level.VERBOSE, messageString, formats);
+    }
+
+    /**
+     * Alias for {@link #printlnVerbose(String, Format...)}.
+     *
+     * @param messageString message text
+     * @param formats       text effects
      */
     public static void verbose(String messageString, Format... formats) {
-        assertArgumentNotNull("messageString", messageString);
-        assureIsConfigured();
-        Message message = new MessageBuilder()
-                .addText(messageString, formats)
-                .asLevel(Level.VERBOSE)
-                .build();
-        messageProcessor.process(message);
+        println(Level.VERBOSE, messageString, formats);
     }
 
     /**
      * Prints a message with level VERBOSE to console applying optional format specifications omitting line feed.
      *
      * @param messageString message text
+     * @param formats       text effects
      */
     public static void printVerbose(String messageString, Format... formats) {
-        assertArgumentNotNull("messageString", messageString);
-        assureIsConfigured();
-        Message message = new MessageBuilder()
-                .addText(messageString, formats)
-                .asLevel(Level.VERBOSE)
-                .withNoLineFeed()
-                .build();
-        messageProcessor.process(message);
+        print(Level.VERBOSE, messageString, formats);
     }
 
     /**
      * Prints a message line with level VERY_VERBOSE to console applying optional format specifications.
      *
      * @param messageString message text
+     * @param formats       text effects
+     */
+    public static void printlnVeryVerbose(String messageString, Format... formats) {
+        println(Level.VERY_VERBOSE, messageString, formats);
+    }
+
+    /**
+     * Alias for {@link #printlnVeryVerbose(String, Format...)}.
+     *
+     * @param messageString message text
+     * @param formats       text effects
      */
     public static void veryVerbose(String messageString, Format... formats) {
-        assertArgumentNotNull("messageString", messageString);
-        assureIsConfigured();
-        Message message = new MessageBuilder()
-                .addText(messageString, formats)
-                .asLevel(Level.VERY_VERBOSE)
-                .build();
-        messageProcessor.process(message);
+        println(Level.VERY_VERBOSE, messageString, formats);
     }
 
     /**
@@ -149,29 +187,27 @@ public class Console {
      * @param messageString message text
      */
     public static void printVeryVerbose(String messageString, Format... formats) {
-        assertArgumentNotNull("messageString", messageString);
-        assureIsConfigured();
-        Message message = new MessageBuilder()
-                .addText(messageString, formats)
-                .asLevel(Level.VERY_VERBOSE)
-                .withNoLineFeed()
-                .build();
-        messageProcessor.process(message);
+        print(Level.VERY_VERBOSE, messageString, formats);
     }
 
     /**
-     * Prints a message line with level VERY_VERBOSE to console applying optional format specifications.
+     * Prints a message line with level VERY_VERY_VERBOSE to console applying optional format specifications.
      *
      * @param messageString message text
+     * @param formats       text effects
+     */
+    public static void printlnVeryVeryVerbose(String messageString, Format... formats) {
+        println(Level.VERY_VERY_VERBOSE, messageString, formats);
+    }
+
+    /**
+     * An alias for {@link #printlnVeryVeryVerbose(String, Format...)}.
+     *
+     * @param messageString message text
+     * @param formats       text effects
      */
     public static void veryVeryVerbose(String messageString, Format... formats) {
-        assertArgumentNotNull("messageString", messageString);
-        assureIsConfigured();
-        Message message = new MessageBuilder()
-                .addText(messageString, formats)
-                .asLevel(Level.VERY_VERY_VERBOSE)
-                .build();
-        messageProcessor.process(message);
+        println(Level.VERY_VERY_VERBOSE, messageString, formats);
     }
 
     /**
@@ -181,22 +217,16 @@ public class Console {
      * @param messageString message text
      */
     public static void printVeryVeryVerbose(String messageString, Format... formats) {
-        assertArgumentNotNull("messageString", messageString);
-        assureIsConfigured();
-        Message message = new MessageBuilder()
-                .addText(messageString, formats)
-                .asLevel(Level.VERY_VERY_VERBOSE)
-                .withNoLineFeed()
-                .build();
-        messageProcessor.process(message);
+        print(Level.VERY_VERY_VERBOSE, messageString, formats);
     }
 
     /**
      * Prints a message line to standard error stream on console applying optional format specifications.
      *
      * @param messageString message text
+     * @param formats       text effects
      */
-    public static void error(String messageString, Format... formats) {
+    public static void printlnError(String messageString, Format... formats) {
         assertArgumentNotNull("messageString", messageString);
         assureIsConfigured();
         Message message = new MessageBuilder()
@@ -204,6 +234,16 @@ public class Console {
                 .toErrorStream()
                 .build();
         messageProcessor.process(message);
+    }
+
+    /**
+     * Alias to {@link #printlnError(String, Format...)}.
+     *
+     * @param messageString message text
+     * @param formats       text effects
+     */
+    public static void error(String messageString, Format... formats) {
+        printlnError(messageString, formats);
     }
 
     /**
@@ -223,6 +263,11 @@ public class Console {
         messageProcessor.process(message);
     }
 
+    /**
+     * Prints stack trace to error stream.
+     *
+     * @param throwable to be printed
+     */
     public static void printStackTrace(Throwable throwable) {
         assertArgumentNotNull("throwable", throwable);
         assureIsConfigured();
@@ -235,6 +280,16 @@ public class Console {
                 .toErrorStream()
                 .build();
         messageProcessor.process(message);
+    }
+
+    /**
+     * Returns current configuration.
+     *
+     * @return configuration
+     */
+    public static ConsoleConfiguration getConfiguration() {
+        assureIsConfigured();
+        return consoleConfiguration;
     }
 
     private static synchronized void assureIsConfigured() {

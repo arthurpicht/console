@@ -6,18 +6,23 @@ public class BlockFormat extends Format {
     public enum OverflowStrategy { LIMIT, ABBREVIATE, EXPAND }
 
     public static class Builder {
-        private final int width;
+        private int width;
         private Align align;
         private boolean expandTextEffects;
         private OverflowStrategy overflowStrategy;
         private String abbreviationSign;
 
-        public Builder(int width) {
-            this.width = width;
+        public Builder() {
+            this.width = -1;
             this.align = Align.LEFT;
             this.expandTextEffects = false;
             this.overflowStrategy = OverflowStrategy.LIMIT;
             this.abbreviationSign = "";
+        }
+
+        public Builder withWidth(int width) {
+            this.width = width;
+            return this;
         }
 
         public Builder withAlign(Align align) {
@@ -42,6 +47,7 @@ public class BlockFormat extends Format {
         }
 
         public BlockFormat build() {
+            if (this.width == -1) throw new IllegalArgumentException("Width must be set");
             return new BlockFormat(this.width, this.align, this.expandTextEffects, this.overflowStrategy, this.abbreviationSign);
         }
     }
@@ -51,10 +57,6 @@ public class BlockFormat extends Format {
     private final boolean expandTextEffects;
     private final OverflowStrategy overflowStrategy;
     private final String abbreviationSign;
-
-    public static Builder builder(int width) {
-        return new Builder(width);
-    }
 
     public BlockFormat(int width, Align align, boolean expandTextEffects, OverflowStrategy overflowStrategy, String abbreviationSign) {
         this.width = width;
