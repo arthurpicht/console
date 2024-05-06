@@ -18,7 +18,7 @@ public class ConsoleChannel implements MessageChannel {
 
     public ConsoleChannel(ConsoleConfiguration consoleConfiguration) {
         this.consoleConfiguration = consoleConfiguration;
-        this.stringComposer = new StringComposer(consoleConfiguration.isColors());
+        this.stringComposer = new StringComposer(withColor(consoleConfiguration));
     }
 
     @Override
@@ -39,6 +39,17 @@ public class ConsoleChannel implements MessageChannel {
         } else {
             PrintStream standardErrorOut = this.consoleConfiguration.getStandardErrorOut();
             standardErrorOut.print(string);
+        }
+    }
+
+    @SuppressWarnings("RedundantIfStatement")
+    private boolean withColor(ConsoleConfiguration consoleConfiguration) {
+        if (!consoleConfiguration.isColors()) {
+            return false;
+        } else  if (System.getenv("NO_COLOR") != null && !consoleConfiguration.isIgnoreNoColorEnvVar()) {
+            return false;
+        } else {
+            return true;
         }
     }
 

@@ -4,7 +4,7 @@
 
 * Console.printStackTrace() implementiert
 
-## 0.1.7 from ???
+## 0.1.7 from 06.05.2024
 
 * Delegation to logger removed into own project
 * Class console extended
@@ -13,4 +13,4 @@
     * initWithDefaults(): user configureWithDefaults instead
 * ConfigurationBuilder: asLevel() -> withLevel()
 * BlockFormat.builder(int width) - > new BlockFormatBuilder().withWidth(int width)
-* 
+* MessageChannel introduced

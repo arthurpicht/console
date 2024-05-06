@@ -7,6 +7,7 @@ Features:
 
 * text-effects (e.g. bold, italic ...)
 * colorization
+* respect for NO_COLOR environment variable
 * formatting
 * 4 levels of output verbosity
 * writing console messages to file
@@ -207,6 +208,12 @@ from Console configuration.
 * **writeLevel** (boolean): add level name to each line
 
 See `de.arthurpicht.console.messageChannel.fileChannel.FileChannelBuilder` for more infos.
+
+### NO_COLOR environment variable
+
+If the [NO_COLOR](https://no-color.org/) environment variable is set to whatever value, no colors will
+be presented on console output. This behaviour can be overridden by using `ConsoleBuilder`-methods 
+`withIgnoredNoColorEnvVar()` or `withIgnoredNoColorEnvVar(boolean ...)`.
 
 ### Extensions
 

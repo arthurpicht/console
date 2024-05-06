@@ -11,6 +11,7 @@ public class ConsoleConfiguration {
 
     private final Level level;
     private final boolean colors;
+    private final boolean ignoreNoColorEnvVar;
     private final boolean plain;
     private final boolean mute;
     private final List<MessageChannel> messageChannelList;
@@ -20,6 +21,7 @@ public class ConsoleConfiguration {
     public ConsoleConfiguration(
             Level level,
             boolean colors,
+            boolean ignoreNoColorEnvVar,
             boolean plain,
             boolean mute,
             List<MessageChannel> messageChannelList,
@@ -27,6 +29,7 @@ public class ConsoleConfiguration {
             PrintStream standardErrorOut) {
         this.level = level;
         this.colors = colors;
+        this.ignoreNoColorEnvVar = ignoreNoColorEnvVar;
         this.plain = plain;
         this.mute = mute;
         this.messageChannelList = Collections.unmodifiableList(messageChannelList);
@@ -35,23 +38,27 @@ public class ConsoleConfiguration {
     }
 
     public Level getLevel() {
-        return level;
+        return this.level;
     }
 
     public boolean isColors() {
-        return colors;
+        return this.colors;
+    }
+
+    public boolean isIgnoreNoColorEnvVar() {
+        return this.ignoreNoColorEnvVar;
     }
 
     public boolean isPlain() {
-        return plain;
+        return this.plain;
     }
 
     public boolean isMute() {
-        return mute;
+        return this.mute;
     }
 
     public List<MessageChannel> getMessageChannelList() {
-        return messageChannelList;
+        return this.messageChannelList;
     }
 
     public PrintStream getStandardOut() {

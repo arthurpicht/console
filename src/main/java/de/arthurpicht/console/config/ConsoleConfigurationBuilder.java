@@ -12,6 +12,7 @@ public class ConsoleConfigurationBuilder {
 
     private Level level;
     private boolean colors;
+    private boolean ignoreNoColorEnvVar;
     private boolean plain;
     private boolean muteOutput;
     private final List<MessageChannel> messageChannelList;
@@ -21,6 +22,7 @@ public class ConsoleConfigurationBuilder {
     public ConsoleConfigurationBuilder() {
         this.level = Level.NORMAL;
         this.colors = true;
+        this.ignoreNoColorEnvVar = false;
         this.plain = false;
         this.muteOutput = false;
         this.messageChannelList = new ArrayList<>();
@@ -51,6 +53,22 @@ public class ConsoleConfigurationBuilder {
      */
     public ConsoleConfigurationBuilder withSuppressedColors(boolean suppressedColors) {
         this.colors = !suppressedColors;
+        return this;
+    }
+
+    /**
+     * Ignore NO_COLOR environment variable.
+     */
+    public ConsoleConfigurationBuilder withIgnoredNoColorEnvVar() {
+        this.ignoreNoColorEnvVar = true;
+        return this;
+    }
+
+    /**
+     * Specify if NO_COLOR environment variable will be ignored. Default: false;
+     */
+    public ConsoleConfigurationBuilder withIgnoredNoColorEnvVar(boolean ignoreNoColorEnvVar) {
+        this.ignoreNoColorEnvVar = ignoreNoColorEnvVar;
         return this;
     }
 
@@ -117,6 +135,7 @@ public class ConsoleConfigurationBuilder {
         return new ConsoleConfiguration(
                 this.level,
                 this.colors,
+                this.ignoreNoColorEnvVar,
                 this.plain,
                 this.muteOutput,
                 this.messageChannelList,
