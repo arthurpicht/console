@@ -4,7 +4,7 @@
 
 * Console.printStackTrace() implementiert
 
-## 0.1.7 from 06.05.2024
+## 0.2.0 / 0.2.1 from 06.05.2024
 
 * Delegation to logger removed into own project
 * Class console extended
