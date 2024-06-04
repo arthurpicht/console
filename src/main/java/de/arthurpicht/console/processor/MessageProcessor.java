@@ -4,6 +4,7 @@ import de.arthurpicht.console.config.ConsoleConfiguration;
 import de.arthurpicht.console.message.Message;
 import de.arthurpicht.console.messageChannel.MessageChannel;
 import de.arthurpicht.console.messageChannel.consoleChannel.ConsoleChannel;
+import de.arthurpicht.console.messageChannel.recorderChannel.Recorder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,10 @@ public class MessageProcessor {
     public MessageProcessor(ConsoleConfiguration consoleConfiguration) {
         List<MessageChannel> messageChannelList = new ArrayList<>(consoleConfiguration.getMessageChannelList());
         messageChannelList.add(0, new ConsoleChannel(consoleConfiguration));
+        if (consoleConfiguration.hasRecorder()) {
+            Recorder.initialize(consoleConfiguration);
+            messageChannelList.add(Recorder.getRecorderChannel());
+        }
         this.messageChannels = messageChannelList;
     }
 

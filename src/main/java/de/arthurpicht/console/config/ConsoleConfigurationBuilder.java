@@ -15,6 +15,7 @@ public class ConsoleConfigurationBuilder {
     private boolean ignoreNoColorEnvVar;
     private boolean plain;
     private boolean muteOutput;
+    private boolean recorder;
     private final List<MessageChannel> messageChannelList;
     private PrintStream standardOut;
     private PrintStream standardErrorOut;
@@ -25,6 +26,7 @@ public class ConsoleConfigurationBuilder {
         this.ignoreNoColorEnvVar = false;
         this.plain = false;
         this.muteOutput = false;
+        this.recorder = false;
         this.messageChannelList = new ArrayList<>();
         this.standardOut = System.out;
         this.standardErrorOut = System.err;
@@ -36,6 +38,7 @@ public class ConsoleConfigurationBuilder {
         this.ignoreNoColorEnvVar = configuration.isIgnoreNoColorEnvVar();
         this.plain = configuration.isPlain();
         this.muteOutput = configuration.isMute();
+        this.recorder = configuration.hasRecorder();
         this.messageChannelList = configuration.getMessageChannelList();
         this.standardOut = configuration.getStandardOut();
         this.standardErrorOut = configuration.getStandardErrorOut();
@@ -117,6 +120,22 @@ public class ConsoleConfigurationBuilder {
     }
 
     /**
+     * Adds output recorder.
+     */
+    public ConsoleConfigurationBuilder withRecorder() {
+        this.recorder = true;
+        return this;
+    }
+
+    /**
+     * Specifies if output recorder is added.
+     */
+    public ConsoleConfigurationBuilder withRecorder(boolean recorder) {
+        this.recorder = recorder;
+        return this;
+    }
+
+    /**
      * Adds a channel of console output.
      *
      * @param messageChannel MessageChannel implementation
@@ -149,6 +168,7 @@ public class ConsoleConfigurationBuilder {
                 this.ignoreNoColorEnvVar,
                 this.plain,
                 this.muteOutput,
+                this.recorder,
                 this.messageChannelList,
                 this.standardOut,
                 this.standardErrorOut

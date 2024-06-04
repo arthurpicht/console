@@ -15,6 +15,7 @@ public class ConsoleConfiguration {
     private final boolean ignoreNoColorEnvVar;
     private final boolean plain;
     private final boolean mute;
+    private final boolean recorder;
     private final List<MessageChannel> messageChannelList;
     private final PrintStream standardOut;
     private final PrintStream standardErrorOut;
@@ -25,6 +26,7 @@ public class ConsoleConfiguration {
             boolean ignoreNoColorEnvVar,
             boolean plain,
             boolean mute,
+            boolean recorder,
             List<MessageChannel> messageChannelList,
             PrintStream standardOut,
             PrintStream standardErrorOut) {
@@ -33,6 +35,7 @@ public class ConsoleConfiguration {
         this.ignoreNoColorEnvVar = ignoreNoColorEnvVar;
         this.plain = plain;
         this.mute = mute;
+        this.recorder = recorder;
         this.messageChannelList = Collections.unmodifiableList(messageChannelList);
         this.standardOut = standardOut;
         this.standardErrorOut = standardErrorOut;
@@ -56,6 +59,10 @@ public class ConsoleConfiguration {
 
     public boolean isMute() {
         return this.mute;
+    }
+
+    public boolean hasRecorder() {
+        return this.recorder;
     }
 
     public List<MessageChannel> getMessageChannelList() {
