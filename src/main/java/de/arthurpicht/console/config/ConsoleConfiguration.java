@@ -7,6 +7,7 @@ import java.io.PrintStream;
 import java.util.Collections;
 import java.util.List;
 
+@SuppressWarnings("ClassCanBeRecord")
 public class ConsoleConfiguration {
 
     private final Level level;

@@ -30,6 +30,17 @@ public class ConsoleConfigurationBuilder {
         this.standardErrorOut = System.err;
     }
 
+    public ConsoleConfigurationBuilder(ConsoleConfiguration configuration) {
+        this.level = configuration.getLevel();
+        this.colors = configuration.isColors();
+        this.ignoreNoColorEnvVar = configuration.isIgnoreNoColorEnvVar();
+        this.plain = configuration.isPlain();
+        this.muteOutput = configuration.isMute();
+        this.messageChannelList = configuration.getMessageChannelList();
+        this.standardOut = configuration.getStandardOut();
+        this.standardErrorOut = configuration.getStandardErrorOut();
+    }
+
     /**
      * Specifies level of console output.
      *
@@ -89,7 +100,7 @@ public class ConsoleConfigurationBuilder {
     }
 
     /**
-     * Mutes output to console. This has no effect to potentially specified channels. Those have an own
+     * Mutes output to console. This has no effect on any other specified channels. Those have an own
      * flag for muting.
      */
     public ConsoleConfigurationBuilder withMutedOutput() {
