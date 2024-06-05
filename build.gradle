@@ -4,6 +4,7 @@ plugins {
 
 group 'com.github.arthurpicht'
 version '0.2.1'
+archivesBaseName = 'ap-console'
 
 repositories {
     mavenCentral()

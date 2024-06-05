@@ -4,7 +4,7 @@ import de.arthurpicht.console.config.ConsoleConfiguration;
 
 import java.util.List;
 
-public class Recorder {
+public class ConsoleRecorder {
 
     private static RecorderChannel recorderChannel;
 
@@ -29,6 +29,11 @@ public class Recorder {
     public static List<String> getConsoleOutput() {
         if (recorderChannel == null) throw new IllegalStateException("RecorderChannel not initialized.");
         return recorderChannel.getConsoleOutput();
+    }
+
+    public static void clear() {
+        if (recorderChannel == null) throw new IllegalStateException("RecorderChannel not initialized.");
+        recorderChannel.clear();
     }
 
 }

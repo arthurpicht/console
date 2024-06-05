@@ -6,19 +6,18 @@ import de.arthurpicht.console.message.Message;
 import de.arthurpicht.console.messageChannel.MessageChannel;
 import de.arthurpicht.console.processor.StringComposer;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RecorderChannel implements MessageChannel {
 
     private final ConsoleConfiguration consoleConfiguration;
-    private final List<String> consoleOutputCache;
+    private final ConsoleOutputCache consoleOutputCache;
     private final StringComposer stringComposer;
     private boolean muted;
 
     public RecorderChannel(ConsoleConfiguration consoleConfiguration) {
         this.consoleConfiguration = consoleConfiguration;
-        this.consoleOutputCache = new ArrayList<>();
+        this.consoleOutputCache = new ConsoleOutputCache();
         this.stringComposer = new StringComposer(false);
         this.muted = false;
     }
@@ -26,18 +25,19 @@ public class RecorderChannel implements MessageChannel {
     @Override
     public void process(Message message) {
         if (!applies(message)) return;
-        String string = "";
-        if (message.isClearLine()) {
-            this.consoleOutputCache.add("<last line deleted>\n");
+        if (message.isClearLine() && !this.consoleConfiguration.isPlain())
+            this.consoleOutputCache.clearLine();
+        String messageString = this.stringComposer.compose(message);
+        if (message.isLineFeed()) {
+            this.consoleOutputCache.println(messageString);
+        } else {
+            this.consoleOutputCache.print(messageString);
         }
-        string += this.stringComposer.compose(message);
-        if (!message.isLineFeed()) string += "<truncated>";
-        this.consoleOutputCache.add(string + "\n");
     }
 
     @Override
     public boolean isMuted() {
-        return this.muted;
+        return this.muted || this.consoleConfiguration.isMute();
     }
 
     public void mute() {
@@ -49,7 +49,11 @@ public class RecorderChannel implements MessageChannel {
     }
 
     public List<String> getConsoleOutput() {
-       return this.consoleOutputCache;
+       return this.consoleOutputCache.getCachedOutput();
+    }
+
+    public void clear() {
+        this.consoleOutputCache.clear();
     }
 
     private boolean applies(Message message) {

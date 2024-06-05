@@ -1,6 +1,5 @@
 package de.arthurpicht.console.messageChannel.consoleChannel;
 
-import de.arthurpicht.console.Console;
 import de.arthurpicht.console.config.ConsoleConfiguration;
 import de.arthurpicht.console.message.Level;
 import de.arthurpicht.console.message.Message;
@@ -23,7 +22,7 @@ public class ConsoleChannel implements MessageChannel {
 
     @Override
     public boolean isMuted() {
-        return Console.getConfiguration().isMute();
+        return this.consoleConfiguration.isMute();
     }
 
     @Override
@@ -46,7 +45,7 @@ public class ConsoleChannel implements MessageChannel {
     private boolean withColor(ConsoleConfiguration consoleConfiguration) {
         if (!consoleConfiguration.isColors()) {
             return false;
-        } else  if (System.getenv("NO_COLOR") != null && !consoleConfiguration.isIgnoreNoColorEnvVar()) {
+        } else if (System.getenv("NO_COLOR") != null && !consoleConfiguration.isIgnoreNoColorEnvVar()) {
             return false;
         } else {
             return true;

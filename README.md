@@ -67,6 +67,7 @@ Available Parameters:
 * **suppressedColor** (boolean): No color will be applied.
 * **plain** (boolean): No control characters will be applied.
 * **mutedOutput** (boolean): Output will be muted.
+* **recorder** (boolean): Initialize and start output recorder.
 * **addMessageChannel** (MessageChannel): A `MessageChannel` implementation will be added.
 * **standardOutput** (PrintStream): PrintStream to be written to. Default: System.out.
 * **standardError** (PrintStream): PrintStream to be written to for error message: System.err.
@@ -214,6 +215,53 @@ See `de.arthurpicht.console.messageChannel.fileChannel.FileChannelBuilder` for m
 If the [NO_COLOR](https://no-color.org/) environment variable is set to whatever value, no colors will
 be presented on console output. This behaviour can be overridden by using `ConsoleBuilder`-methods 
 `withIgnoredNoColorEnvVar()` or `withIgnoredNoColorEnvVar(boolean ...)`.
+
+### Output Recorder
+
+An output recorder can be configured, that will save all output in memory for a later processing. The rendering of
+messages is connected to the console configuration in the following way:
+
+* configuration *plain* will also affect recorded messages
+* configuration *level* will also affect recorded messages
+* recorded messages are free of colors and ANSI-based formatting
+* messages to a muted console will also be omitted on recording
+* the recorder has an additional mute flag: the recorder can be turned off independently of console
+
+Caution: As messages are stored in memory, recording output in long-running processes can be dangerous as this can 
+effectively appear as a memory-leak.
+
+The output recorder is initialized on configuration time:
+
+```java
+ConsoleConfiguration consoleConfiguration = new ConsoleConfigurationBuilder()
+        .withRecorder()
+        .build();
+Console.configure(consoleConfiguration);
+```
+
+After initialization the recorder starts recording every printed message and can be accessed by the `ConsoleRecorder` class. `ConsoleRecorder` provides the
+following functionalities:
+
+* **mute** and **unmute**
+
+    Turns recorder off and on:
+
+    ```java
+    Console.println("Hello world!");
+    ConsoleRecorder.mute();
+    Console.println("Message to be muted ...");
+    ConsoleRecorder.unmute();
+    Console.println("A simple recorder test.");
+    ```
+* **getConsoleOutput**
+
+    Returns all recorded messages:
+
+      List<String> message = ConsoleRecorder.getConsoleOutput(); 
+
+* **clear**
+
+    Delete all recorded messages.
 
 ### Extensions
 
