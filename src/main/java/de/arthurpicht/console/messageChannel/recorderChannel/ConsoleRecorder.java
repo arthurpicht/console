@@ -12,6 +12,10 @@ public class ConsoleRecorder {
         recorderChannel = new RecorderChannel(consoleConfiguration);
     }
 
+    public static void destroy() {
+        recorderChannel = null;
+    }
+
     public static RecorderChannel getRecorderChannel() {
         return recorderChannel;
     }

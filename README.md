@@ -15,9 +15,7 @@ Features:
 * delegating console messages to slf4j by extension
 * highly programmatically configurable 
 
-## Usage
-
-### Hello World
+## Hello World
 
 A simple substitution for `System.out.println`:
 
@@ -44,6 +42,8 @@ Console.out(new MessageBuilder()
                         .build())
         .build());
 ```
+
+## Usage
 
 ### Configuring Console
 
@@ -208,7 +208,9 @@ from Console configuration.
 * **writeTimestamp** (boolean): add Timestamp to each line
 * **writeLevel** (boolean): add level name to each line
 
-See `de.arthurpicht.console.messageChannel.fileChannel.FileChannelBuilder` for more infos.
+See [FileChannelBuilder](src/main/java/de/arthurpicht/console/messageChannel/fileChannel/FileChannelBuilder.java)
+and [FileChannelIntegrationTest](src/test/java/de/arthurpicht/console/integrationTests/FileChannelIntegrationTest.java)
+for more infos.
 
 ### NO_COLOR environment variable
 
@@ -218,14 +220,15 @@ be presented on console output. This behaviour can be overridden by using `Conso
 
 ### Output Recorder
 
-An output recorder can be configured, that will save all output in memory for a later processing. The rendering of
-messages is connected to the console configuration in the following way:
+It is possible to configure an output recorder that stores all output in memory for later processing. 
+The following points are taken into account:
 
-* configuration *plain* will also affect recorded messages
-* configuration *level* will also affect recorded messages
-* recorded messages are free of colors and ANSI-based formatting
-* messages to a muted console will also be omitted on recording
-* the recorder has an additional mute flag: the recorder can be turned off independently of console
+* the output recorder starts working right after initialization (unmuted by default)
+* console configuration *plain* will also affect recorded messages
+* console configuration *level* will also affect recorded messages
+* recorded messages are free of colors and ANSI-based formatting independent of console configuration
+* messages sent to a muted console will also be omitted on recording
+* the recorder has an additional *mute* flag: the recorder can be turned off independently of console
 
 Caution: As messages are stored in memory, recording output in long-running processes can be dangerous as this can 
 effectively appear as a memory-leak.
@@ -242,9 +245,7 @@ Console.configure(consoleConfiguration);
 After initialization the recorder starts recording every printed message and can be accessed by the `ConsoleRecorder` class. `ConsoleRecorder` provides the
 following functionalities:
 
-* **mute** and **unmute**
-
-    Turns recorder off and on:
+* **mute** and **unmute**: turn recorder off and on
 
     ```java
     Console.println("Hello world!");
@@ -253,15 +254,20 @@ following functionalities:
     ConsoleRecorder.unmute();
     Console.println("A simple recorder test.");
     ```
-* **getConsoleOutput**
+* **getConsoleOutput**: return all recorded messages
 
-    Returns all recorded messages:
+  ```java
+  List<String> message = ConsoleRecorder.getConsoleOutput(); 
+  ```
 
-      List<String> message = ConsoleRecorder.getConsoleOutput(); 
+* **clear**: delete all recorded messages
 
-* **clear**
+  ```java
+  ConsoleReader.clear();
+  ```
 
-    Delete all recorded messages.
+See test case [ConsoleRecorderIntegrationTest](src/test/java/de/arthurpicht/console/integrationTests/ConsoleRecorderIntegrationTest.java)
+for further examples.
 
 ### Extensions
 
@@ -272,5 +278,4 @@ as an example.
 
 ## Demos
 
-See test case `DemosAsTest` for some demos.
-
+See test case [DemosAsTest](src/test/java/de/arthurpicht/console/DemosAsTest.java) for some demos.

@@ -165,12 +165,12 @@ public class ConsoleRecorderIntegrationTest {
         assertEquals("A simple recorder test.", output.get(1));
     }
 
-//    @Test
-//    public void throwExceptionOnNonConfigured() {
-//        ConsoleConfiguration consoleConfiguration = new ConsoleConfigurationBuilder().build();
-//        Console.configure(consoleConfiguration);
-//
-//        Assertions.assertThrows(IllegalStateException.class, ConsoleRecorder::mute);
-//    }
+    @Test
+    public void throwExceptionOnNonConfigured() {
+        ConsoleConfiguration consoleConfiguration = new ConsoleConfigurationBuilder().build();
+        Console.configure(consoleConfiguration);
+
+        Assertions.assertThrows(IllegalStateException.class, ConsoleRecorder::mute);
+    }
 
 }
