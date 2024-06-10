@@ -17,10 +17,25 @@ public class ConsoleConfigurationChanger {
         changeMuteState(false);
     }
 
+    public static void withRecorder() {
+        changeRecorderState(true);
+    }
+
+    public static void withoutRecorder() {
+        changeRecorderState(false);
+    }
+
     public static void changeMuteState(boolean muted) {
         ConsoleConfiguration consoleConfiguration = Console.getConfiguration();
         ConsoleConfigurationBuilder consoleConfigurationBuilder = new ConsoleConfigurationBuilder(consoleConfiguration);
         consoleConfigurationBuilder.withMutedOutput(muted);
+        Console.configure(consoleConfigurationBuilder.build());
+    }
+
+    public static void changeRecorderState(boolean recorder) {
+        ConsoleConfiguration consoleConfiguration = Console.getConfiguration();
+        ConsoleConfigurationBuilder consoleConfigurationBuilder = new ConsoleConfigurationBuilder(consoleConfiguration);
+        consoleConfigurationBuilder.withRecorder(recorder);
         Console.configure(consoleConfigurationBuilder.build());
     }
 
