@@ -1,5 +1,9 @@
 # release history
 
+## 0.3.2 from 05.11.2024
+
+* Switch publishing from jitpack.io to github.com
+
 ## 0.1.6 from 16.07.2023
 
 * Console.printStackTrace() implementiert
