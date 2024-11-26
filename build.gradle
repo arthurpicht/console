@@ -13,7 +13,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'de.arthurpicht:ap-utils-core:1.19.0'
+    implementation 'de.arthurpicht:ap-utils-core:1.20.0'
     implementation 'de.arthurpicht:ap-utils-io:0.0.23'
 
     implementation 'com.diogonunes:JColor:5.5.1'
