@@ -15,7 +15,7 @@ public class MessageProcessor {
 
     public MessageProcessor(ConsoleConfiguration consoleConfiguration) {
         List<MessageChannel> messageChannelList = new ArrayList<>(consoleConfiguration.getMessageChannelList());
-        messageChannelList.add(0, new ConsoleChannel(consoleConfiguration));
+        messageChannelList.addFirst(new ConsoleChannel(consoleConfiguration));
         if (consoleConfiguration.hasRecorder()) {
             ConsoleRecorder.initialize(consoleConfiguration);
             messageChannelList.add(ConsoleRecorder.getRecorderChannel());

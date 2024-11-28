@@ -4,11 +4,13 @@ import de.arthurpicht.console.message.format.Format;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class MessageBuilder {
 
     private Level level;
     private StandardStream target;
     private final List<Text> textList;
+    private boolean terminatePreviousLine;
     private boolean clearLine;
     private boolean lineFeed;
     private int indentation;
@@ -17,6 +19,7 @@ public class MessageBuilder {
         this.level = Level.NORMAL;
         this.target = StandardStream.OUT;
         this.textList = new ArrayList<>();
+        this.terminatePreviousLine = false;
         this.clearLine = false;
         this.lineFeed = true;
         this.indentation = 0;
@@ -57,15 +60,14 @@ public class MessageBuilder {
         return this;
     }
 
-//    public MessageBuilder addText(String textString) {
-//        Text text = new Text(textString);
-//        this.textList.add(text);
-//        return this;
-//    }
-
     public MessageBuilder addText(String textString, Format... formats) {
         Text text = new Text(textString, formats);
         this.textList.add(text);
+        return this;
+    }
+
+    public MessageBuilder terminatePreviousLine() {
+        this.terminatePreviousLine = true;
         return this;
     }
 
@@ -89,6 +91,7 @@ public class MessageBuilder {
                 this.level,
                 this.target,
                 this.textList,
+                this.terminatePreviousLine,
                 this.clearLine,
                 this.lineFeed,
                 this.indentation

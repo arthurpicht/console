@@ -27,6 +27,8 @@ public class RecorderChannel implements MessageChannel {
         if (!applies(message)) return;
         if (message.isClearLine() && !this.consoleConfiguration.isPlain())
             this.consoleOutputCache.clearLine();
+        if (message.isTerminatePreviousLine() && !this.consoleOutputCache.lastLineEndsWithLinefeed())
+            this.consoleOutputCache.println("");
         String messageString = this.stringComposer.compose(message);
         if (message.isLineFeed()) {
             this.consoleOutputCache.println(messageString);

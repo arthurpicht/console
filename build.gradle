@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'de.arthurpicht'
-version '0.3.2'
+version '0.4.0'
 def artifact = 'ap-console'
 
 repositories {
@@ -14,12 +14,12 @@ repositories {
 
 dependencies {
     implementation 'de.arthurpicht:ap-utils-core:1.20.0'
-    implementation 'de.arthurpicht:ap-utils-io:0.0.23'
+    implementation 'de.arthurpicht:ap-utils-io:0.0.24'
 
     implementation 'com.diogonunes:JColor:5.5.1'
 
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.11.3'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.11.3'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.11.3'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 java {

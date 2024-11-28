@@ -14,10 +14,11 @@ public interface MessageChannel {
      *
      * @return muted
      */
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     boolean isMuted();
 
     /**
-     * Process message and manage output to intended destiatnion.
+     * Process message and manage output to intended destination.
      *
      * @param message massage to be processed
      */

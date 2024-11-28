@@ -14,10 +14,17 @@ public class ConsoleChannel implements MessageChannel {
 
     private final ConsoleConfiguration consoleConfiguration;
     private final StringComposer stringComposer;
+    private final PrintStreamMonitor printStreamMonitor;
+    private final PrintStream stdout;
+    private final PrintStream stderr;
 
     public ConsoleChannel(ConsoleConfiguration consoleConfiguration) {
         this.consoleConfiguration = consoleConfiguration;
         this.stringComposer = new StringComposer(withColor(consoleConfiguration));
+        this.printStreamMonitor
+                = new PrintStreamMonitor(consoleConfiguration.getStandardOut(), consoleConfiguration.getStandardErrorOut());
+        this.stdout = printStreamMonitor.getPrintStreamStdOut();
+        this.stderr = printStreamMonitor.getPrintStreamStdErr();
     }
 
     @Override
@@ -28,16 +35,18 @@ public class ConsoleChannel implements MessageChannel {
     @Override
     public void process(Message message) {
         if (!applies(message)) return;
-        PrintStream standardOut = this.consoleConfiguration.getStandardOut();
+//        PrintStream standardOut = this.consoleConfiguration.getStandardOut();
         if (message.isClearLine() && !this.consoleConfiguration.isPlain())
-            standardOut.print(AnsiCode.ERASE_LINE_CONTENT() + AnsiCode.CARRIAGE_RETURN());
+            stdout.print(AnsiCode.ERASE_LINE_CONTENT() + AnsiCode.CARRIAGE_RETURN());
+        if (message.isTerminatePreviousLine() && !this.printStreamMonitor.lastOutputEndsWithNewline())
+            stdout.println();
         String string = this.stringComposer.compose(message);
         if (message.isLineFeed()) string += "\n";
         if (message.getTarget() == StandardStream.OUT) {
-            standardOut.print(string);
+            stdout.print(string);
         } else {
-            PrintStream standardErrorOut = this.consoleConfiguration.getStandardErrorOut();
-            standardErrorOut.print(string);
+//            PrintStream standardErrorOut = this.consoleConfiguration.getStandardErrorOut();
+            stderr.print(string);
         }
     }
 

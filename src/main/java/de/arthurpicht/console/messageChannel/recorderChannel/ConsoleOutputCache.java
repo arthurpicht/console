@@ -33,7 +33,7 @@ public class ConsoleOutputCache {
 
     public void clearLine() {
         if (!this.nextLine) {
-            this.cache.remove(this.cache.size() - 1);
+            this.cache.removeLast();
             this.nextLine = true;
         }
     }
@@ -46,9 +46,13 @@ public class ConsoleOutputCache {
         return this.cache;
     }
 
+    public boolean lastLineEndsWithLinefeed() {
+        return this.nextLine;
+    }
+
     private void addToLastLine(String line) {
-        String lastLine = this.cache.get(this.cache.size() - 1);
-        this.cache.remove(this.cache.size() - 1);
+        String lastLine = this.cache.getLast();
+        this.cache.removeLast();
         this.cache.add(lastLine + line);
     }
 
