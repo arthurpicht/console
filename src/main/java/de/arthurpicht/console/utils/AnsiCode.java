@@ -17,4 +17,8 @@ public class AnsiCode {
         return "\033[" + lines + "A";
     }
 
+    public static String MOVE_LINE_UP() {
+        return "\u001B[F";
+    }
+
 }
