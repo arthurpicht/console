@@ -20,4 +20,11 @@ class PrintStreamMonitorTest {
         assertFalse(printStreamMonitor.lastOutputEndsWithNewline());
     }
 
+    @Test
+    public void emptyMonitor() {
+        PrintStreamMonitor printStreamMonitor = new PrintStreamMonitor(System.out, System.err);
+
+        assertTrue(printStreamMonitor.lastOutputEndsWithNewline());
+    }
+
 }

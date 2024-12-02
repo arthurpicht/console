@@ -25,7 +25,8 @@ public class PrintStreamMonitor {
     }
 
     public boolean lastOutputEndsWithNewline() {
-        return consoleBufferStdOut.toString().endsWith("\n");
+        String bufferAsString = consoleBufferStdOut.toString();
+        return bufferAsString.isEmpty() || consoleBufferStdOut.toString().endsWith("\n");
     }
 
 }

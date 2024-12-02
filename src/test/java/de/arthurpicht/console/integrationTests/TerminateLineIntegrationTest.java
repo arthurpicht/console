@@ -52,6 +52,37 @@ public class TerminateLineIntegrationTest {
     }
 
     @Test
+    public void noOutputBeforeTerminatePreviousLine() {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(byteArrayOutputStream);
+        ByteArrayOutputStream byteArrayOutputStreamError = new ByteArrayOutputStream();
+        PrintStream printStreamError = new PrintStream(byteArrayOutputStreamError);
+        Console.configure(
+                new ConsoleConfigurationBuilder()
+                        .withStandardOut(printStream)
+                        .withStandardErrorOut(printStreamError)
+                        .build()
+        );
+
+        Console.out(new MessageBuilder()
+                .terminatePreviousLine()
+                .addText("some text here")
+                .build()
+        );
+        Console.println("next line");
+
+        String consoleOutput = byteArrayOutputStream.toString();
+        System.out.println(consoleOutput);
+        assertEquals("""
+                some text here
+                next line
+                """, consoleOutput);
+
+        String consoleOutputError = byteArrayOutputStreamError.toString();
+        assertEquals("", consoleOutputError);
+    }
+
+    @Test
     public void terminatePreviousLineError() {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         PrintStream printStream = new PrintStream(byteArrayOutputStream);
