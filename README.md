@@ -47,8 +47,9 @@ Console.out(new MessageBuilder()
 
 ### Configuring Console
 
-First configure Console at the entry point of the application. If not done so,
-a default configuration will be applied. Then call `Console` methods to
+First configure Console at the entry point of the application using 
+[ConsoleConfigurationBuilder](src/main/java/de/arthurpicht/console/config/ConsoleConfigurationBuilder.java). 
+If not done so, a default configuration will be applied. Then call `Console` methods to
 write to console instead of `System.out` or `System.err`.
 
 ```java
@@ -74,7 +75,7 @@ Available Parameters:
 
 ### Console methods
 
-The `Console` class consists of three types of methods:
+The [Console](src/main/java/de/arthurpicht/console/Console.java) class consists of three types of methods:
 
 #### print methods
 
@@ -124,7 +125,7 @@ There are four types of format definitions:
 Text colors can be specified by predefined constants or by color number or respectively by
 rgb-codes.
 
-See class `de.arthurpicht.console.message.format.Format` for more infos.
+See class [Format](src/main/java/de/arthurpicht/console/message/format/Format.java) for more infos.
 
 ### Verbosity levels
 
@@ -134,12 +135,14 @@ shown, if `Console` is configured for at least `VERBOSE` level.
 
 The output to the error stream occurs regardless of any configuration of verbosity level. 
 
-See `ConsoleConfigurationBuilder` for a full list of configuration parameters, documentation and default values.
+See [ConsoleConfigurationBuilder](src/main/java/de/arthurpicht/console/config/ConsoleConfigurationBuilder.java) 
+for a full list of configuration parameters, documentation and default values.
 
 ### MessageBuilder
 
 For the output of some rather simple messages, using `Console.print...` methods may be sufficient.
-However, in order to fully utilize the possible functionality, the usage of the `MessageBuilder` is required.
+However, in order to fully utilize the possible functionality, the usage of the 
+[MessageBuilder](src/main/java/de/arthurpicht/console/message/MessageBuilder.java) is required.
 
 Example:
 
@@ -156,7 +159,7 @@ new MessageBuilder()
     .build()
 ```
 
-`MessageBuilder` has the following methods:
+[MessageBuilder](src/main/java/de/arthurpicht/console/message/MessageBuilder.java) has the following methods:
 
 * ***asNormal()***, ***asVerbose()***, ***asVeryVerbose()***, ***asVeryVeryVerbose()***, ***asLevel(Level level)***: specify verbosity level, default: NORMAL
 * ***toStandardOut()***, ***toErrorStream()***: destination stream, default: standard out
@@ -167,11 +170,13 @@ new MessageBuilder()
 
 ### BlockFormat
 
-A `BlockFormat` is a subtype of `Format` which allows for building text blocks with a fixed sized width.
+A [BlockFormat](src/main/java/de/arthurpicht/console/message/format/BlockFormat.java) is a subtype of 
+[Format](src/main/java/de/arthurpicht/console/message/format/Format.java) 
+which allows for building text blocks with a fixed sized width.
 The text can be aligned within the block. Furthermore, text with excess length can be shortened and
 a trailing abbreviation sign can optionally be inserted.
 
-Methods of `BlockFormat.Builder`:
+Methods of [BlockFormat.Builder](src/main/java/de/arthurpicht/console/message/format/BlockFormat.java):
 
 * ***withWidth(int i)***: width of text block, mandatory
 * ***withAlign(Align align)***: align for text positioning in block, default: Align.LEFT
@@ -185,8 +190,10 @@ default: LIMIT
 ### FileChannel
 
 Console can be configured to write messages to a file. This can be achieved by configuring a
-FileChannel. Use the `FileChannelBuilder` to build `FileChannel` object and add it to
-`ConsoleConfiguration` like this:
+FileChannel. Use the 
+[FileChannelBuilder](src/main/java/de/arthurpicht/console/messageChannel/fileChannel/FileChannelBuilder.java) to build 
+[FileChannel](src/main/java/de/arthurpicht/console/messageChannel/fileChannel/FileChannel.java) object and add it to
+[ConsoleConfiguration](src/main/java/de/arthurpicht/console/config/ConsoleConfiguration.java) like this:
 
 ```java
 FileChannel fileChannel = new FileChannelBuilder()
@@ -199,7 +206,8 @@ ConsoleConfiguration consoleConfiguration = new ConsoleConfigurationBuilder()
 Console.println("This message will apear on console and will also be written to file.");
 ```
 
-`FileChannel` has the following parameters:
+[FileChannel](src/main/java/de/arthurpicht/console/messageChannel/fileChannel/FileChannel.java) 
+has the following parameters:
 
 * **file** (Path): Path to file. Mandatory.
 * **muted** (boolean): mute output. Default: false.
@@ -215,7 +223,8 @@ for more infos.
 ### NO_COLOR environment variable
 
 If the [NO_COLOR](https://no-color.org/) environment variable is set to whatever value, no colors will
-be presented on console output. This behaviour can be overridden by using `ConsoleBuilder`-methods 
+be presented on console output. This behaviour can be overridden by using 
+[ConsoleConfigurationBuilder](src/main/java/de/arthurpicht/console/config/ConsoleConfigurationBuilder.java)-methods 
 `withIgnoredNoColorEnvVar()` or `withIgnoredNoColorEnvVar(boolean ...)`.
 
 ### Output Recorder
@@ -223,14 +232,15 @@ be presented on console output. This behaviour can be overridden by using `Conso
 It is possible to configure an output recorder that stores all output in memory for later processing. 
 The following points are taken into account:
 
-* the output recorder starts working right after initialization (unmuted by default)
+* the output recorder starts working right after initialization by configuration (unmuted by default)
 * console configuration *plain* will also affect recorded messages
 * console configuration *level* will also affect recorded messages
 * recorded messages are free of colors and ANSI-based formatting independent of console configuration
 * messages sent to a muted console will also be omitted on recording
 * the recorder has an additional *mute* flag: the recorder can be turned off independently of console
+* 
 
-Caution: As messages are stored in memory, recording output in long-running processes can be dangerous as this can 
+*Caution*: As messages are stored in memory, recording output in long-running processes can be dangerous as this can 
 effectively appear as a memory-leak.
 
 The output recorder is initialized on configuration time:
@@ -272,7 +282,7 @@ for further examples.
 ### Extensions
 
 The processing of console messages can be realized by implementing the interface
-`de.arthurpicht.console.messageChannel.MessageChannel`. See project 
+[MessageChannel](src/main/java/de/arthurpicht/console/messageChannel/MessageChannel.java). See project 
 [arthurpicht/console-to-slf4j](https://github.com/arthurpicht/console-to-slf4j)
 as an example.
 
