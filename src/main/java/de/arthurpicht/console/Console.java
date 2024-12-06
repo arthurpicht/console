@@ -7,6 +7,8 @@ import de.arthurpicht.console.message.Message;
 import de.arthurpicht.console.message.MessageBuilder;
 import de.arthurpicht.console.message.format.Format;
 import de.arthurpicht.console.processor.MessageProcessor;
+import de.arthurpicht.console.progress.ProgressCounter;
+import de.arthurpicht.console.progress.TriggeredProgressIndicator;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -280,6 +282,17 @@ public class Console {
                 .toErrorStream()
                 .build();
         messageProcessor.process(message);
+    }
+
+    /**
+     * Shows progress counter.
+     *
+     * @param max maximum number of steps to be displayed
+     * @return instance of interface TriggeredProgressIndicator
+     */
+    public static TriggeredProgressIndicator showProgressCounter(int max) {
+        assureIsConfigured();
+        return new ProgressCounter(consoleConfiguration, max);
     }
 
     /**

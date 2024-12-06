@@ -5,11 +5,11 @@ support rich CLI applications.
 
 Features:
 
-* text-effects (e.g. bold, italic ...)
+* text-effects (e.g., bold, italic ...)
 * colorization
 * respect for NO_COLOR environment variable
 * formatting
-* 4 levels of output verbosity
+* Four levels of output verbosity
 * writing console messages to file
 * extensible message processing functionality
 * delegating console messages to slf4j by extension
@@ -113,11 +113,35 @@ Simply prints stackTrace. Example:
 
      Console.printStackTrace(e);
 
+### showProgressCounter
+
+This feature can be used to indicate the progress of long-running processes. 
+It shows a progress counter that can be increased programmatically and must be cleared after finishing.
+
+No other output must be performed during the lifetime of a progress counter. 
+If done so, the display of progress counter will be broken.
+
+Progress counter will only be displayed on the configured
+standard output stream. It will not be printed on any other message channel.
+
+No progress counter will be displayed if option `plain` in configured.
+
+```java
+Console.print("Some task with 100 steps: ");
+TriggeredProgressIndicator progress = Console.showProgressCounter(100);
+progress.display();
+for (int i = 0; i < 100; i++) 
+    progress.increase();
+    // do step i of 100 here ....
+}
+progress.clear();
+```
+
 ### Format definitions
 
 There are four types of format definitions:
 
-1. text effects: e.g. bold, italic
+1. text effects: e.g., bold, italic
 2. text colors
 3. text background colors
 4. text block definitions with alignments
@@ -125,7 +149,7 @@ There are four types of format definitions:
 Text colors can be specified by predefined constants or by color number or respectively by
 rgb-codes.
 
-See class [Format](src/main/java/de/arthurpicht/console/message/format/Format.java) for more infos.
+See class [Format](src/main/java/de/arthurpicht/console/message/format/Format.java) for more info.
 
 ### Verbosity levels
 
@@ -141,7 +165,7 @@ for a full list of configuration parameters, documentation and default values.
 ### MessageBuilder
 
 For the output of some rather simple messages, using `Console.print...` methods may be sufficient.
-However, in order to fully utilize the possible functionality, the usage of the 
+However, to fully use the possible functionality, the usage of the 
 [MessageBuilder](src/main/java/de/arthurpicht/console/message/MessageBuilder.java) is required.
 
 Example:
@@ -164,8 +188,8 @@ new MessageBuilder()
 * ***asNormal()***, ***asVerbose()***, ***asVeryVerbose()***, ***asVeryVeryVerbose()***, ***asLevel(Level level)***: specify verbosity level, default: NORMAL
 * ***toStandardOut()***, ***toErrorStream()***: destination stream, default: standard out
 * ***addText(String text, Format format)***
-* ***clearLine()***: previously written text on current line will be overwritten
-* ***withNoLineFeed()***: no line feed will be executed after message, default: perform line feed
+* ***clearLine()***: a previously written text on the current line will be overwritten
+* ***withNoLineFeed()***: no line feed will be executed after a message, default: perform line feed
 * ***withIndentation(int inden)***: number of spaces to be used as leading indentation, default: 0.
 
 ### BlockFormat
@@ -173,7 +197,7 @@ new MessageBuilder()
 A [BlockFormat](src/main/java/de/arthurpicht/console/message/format/BlockFormat.java) is a subtype of 
 [Format](src/main/java/de/arthurpicht/console/message/format/Format.java) 
 which allows for building text blocks with a fixed sized width.
-The text can be aligned within the block. Furthermore, text with excess length can be shortened and
+The text can be aligned within the block. Furthermore, a text with excess length can be shortened and
 a trailing abbreviation sign can optionally be inserted.
 
 Methods of [BlockFormat.Builder](src/main/java/de/arthurpicht/console/message/format/BlockFormat.java):

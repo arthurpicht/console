@@ -3,6 +3,7 @@ package de.arthurpicht.console;
 import de.arthurpicht.console.message.MessageBuilder;
 import de.arthurpicht.console.message.format.BlockFormat;
 import de.arthurpicht.console.message.format.Format;
+import de.arthurpicht.console.progress.TriggeredProgressIndicator;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
