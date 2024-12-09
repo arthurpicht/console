@@ -129,7 +129,6 @@ No progress counter will be displayed if option `plain` in configured.
 ```java
 Console.print("Some task with 100 steps: ");
 TriggeredProgressIndicator progress = Console.showProgressCounter(100);
-progress.display();
 for (int i = 0; i < 100; i++) 
     progress.increase();
     // do step i of 100 here ....

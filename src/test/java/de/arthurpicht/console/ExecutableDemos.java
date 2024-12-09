@@ -9,7 +9,6 @@ public class ExecutableDemos {
         int max = 10;
         long sleepTime = 1000;
         TriggeredProgressIndicator progress = Console.showProgressCounter(max);
-        progress.display();
         for (int i = 0; i < max; i++) {
             progress.increase();
             Thread.sleep(sleepTime);

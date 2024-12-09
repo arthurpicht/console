@@ -292,7 +292,9 @@ public class Console {
      */
     public static TriggeredProgressIndicator showProgressCounter(int max) {
         assureIsConfigured();
-        return new ProgressCounter(consoleConfiguration, max);
+        TriggeredProgressIndicator triggeredProgressIndicator = new ProgressCounter(consoleConfiguration, max);
+        triggeredProgressIndicator.display();
+        return triggeredProgressIndicator;
     }
 
     /**
