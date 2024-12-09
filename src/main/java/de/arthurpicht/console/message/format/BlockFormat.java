@@ -86,5 +86,4 @@ public class BlockFormat extends Format {
         return this.abbreviationSign;
     }
 
-
 }

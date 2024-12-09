@@ -35,7 +35,6 @@ public class ConsoleChannel implements MessageChannel {
     @Override
     public void process(Message message) {
         if (!applies(message)) return;
-//        PrintStream standardOut = this.consoleConfiguration.getStandardOut();
         if (message.isClearLine() && !this.consoleConfiguration.isPlain())
             stdout.print(AnsiCode.ERASE_LINE_CONTENT() + AnsiCode.CARRIAGE_RETURN());
         if (message.isTerminatePreviousLine() && !this.printStreamMonitor.lastOutputEndsWithNewline())
@@ -45,7 +44,6 @@ public class ConsoleChannel implements MessageChannel {
         if (message.getTarget() == StandardStream.OUT) {
             stdout.print(string);
         } else {
-//            PrintStream standardErrorOut = this.consoleConfiguration.getStandardErrorOut();
             stderr.print(string);
         }
     }

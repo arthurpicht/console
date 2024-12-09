@@ -48,6 +48,7 @@ public abstract class Format {
         return new ColorFormat(Attribute.ENCIRCLED());
     }
 
+    @SuppressWarnings("SpellCheckingInspection")
     public static Format OVERLINED() {
         return new ColorFormat(Attribute.OVERLINED());
     }

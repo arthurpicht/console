@@ -68,6 +68,7 @@ Available Parameters:
 * **suppressedColor** (boolean): No color will be applied.
 * **plain** (boolean): No control characters will be applied.
 * **mutedOutput** (boolean): Output will be muted.
+* **suppressedProgressIndicator** (boolean): Progress indicators will not be displayed.
 * **recorder** (boolean): Initialize and start output recorder.
 * **addMessageChannel** (MessageChannel): A `MessageChannel` implementation will be added.
 * **standardOutput** (PrintStream): PrintStream to be written to. Default: System.out.
@@ -118,13 +119,14 @@ Simply prints stackTrace. Example:
 This feature can be used to indicate the progress of long-running processes. 
 It shows a progress counter that can be increased programmatically and must be cleared after finishing.
 
-No other output must be performed during the lifetime of a progress counter. 
+* No other output must be performed during the lifetime of a progress counter. 
 If done so, the display of progress counter will be broken.
 
-Progress counter will only be displayed on the configured
+* Progress counter will only be displayed on the configured
 standard output stream. It will not be printed on any other message channel.
 
-No progress counter will be displayed if option `plain` in configured.
+* The output of a ProgressCounter will be suppressed if one the following ConsoleConfiguration options
+if specified: `suppressedProgressIndicator`, `muted` or `plain`.
 
 ```java
 Console.print("Some task with 100 steps: ");

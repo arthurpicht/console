@@ -11,6 +11,7 @@ public class Text {
     private final String textString;
     private final List<Format> formatList;
 
+    @SuppressWarnings("unused")
     public Text(String textString, List<Format> formatList) {
         this.textString = textString;
         this.formatList = Collections.unmodifiableList(formatList);

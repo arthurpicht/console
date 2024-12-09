@@ -3,6 +3,7 @@ package de.arthurpicht.console.utils;
 /**
  * See <a href="https://en.wikipedia.org/wiki/ANSI_escape_code">Wikipedia ANSI-Escape-Codes</a>
  */
+@SuppressWarnings("unused")
 public class AnsiCode {
 
     public static String ERASE_LINE_CONTENT() {

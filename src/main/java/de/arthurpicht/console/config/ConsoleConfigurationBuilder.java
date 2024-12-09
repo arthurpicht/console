@@ -15,6 +15,7 @@ public class ConsoleConfigurationBuilder {
     private boolean ignoreNoColorEnvVar;
     private boolean plain;
     private boolean muteOutput;
+    private boolean suppressProgressIndicators;
     private boolean recorder;
     private final List<MessageChannel> messageChannelList;
     private PrintStream standardOut;
@@ -26,6 +27,7 @@ public class ConsoleConfigurationBuilder {
         this.ignoreNoColorEnvVar = false;
         this.plain = false;
         this.muteOutput = false;
+        this.suppressProgressIndicators = false;
         this.recorder = false;
         this.messageChannelList = new ArrayList<>();
         this.standardOut = System.out;
@@ -38,6 +40,7 @@ public class ConsoleConfigurationBuilder {
         this.ignoreNoColorEnvVar = configuration.isIgnoreNoColorEnvVar();
         this.plain = configuration.isPlain();
         this.muteOutput = configuration.isMute();
+        this.suppressProgressIndicators = configuration.isSuppressProgressIndicators();
         this.recorder = configuration.hasRecorder();
         this.messageChannelList = configuration.getMessageChannelList();
         this.standardOut = configuration.getStandardOut();
@@ -119,6 +122,16 @@ public class ConsoleConfigurationBuilder {
         return this;
     }
 
+    public ConsoleConfigurationBuilder withSuppressedProgressIndicators() {
+        this.suppressProgressIndicators = true;
+        return this;
+    }
+
+    public ConsoleConfigurationBuilder withSuppressedProgressIndicators(boolean suppressProgressIndicators) {
+        this.suppressProgressIndicators = suppressProgressIndicators;
+        return this;
+    }
+
     /**
      * Adds output recorder.
      */
@@ -168,6 +181,7 @@ public class ConsoleConfigurationBuilder {
                 this.ignoreNoColorEnvVar,
                 this.plain,
                 this.muteOutput,
+                this.suppressProgressIndicators,
                 this.recorder,
                 this.messageChannelList,
                 this.standardOut,

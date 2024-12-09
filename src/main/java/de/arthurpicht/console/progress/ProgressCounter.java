@@ -2,6 +2,8 @@ package de.arthurpicht.console.progress;
 
 import de.arthurpicht.console.config.ConsoleConfiguration;
 
+import static de.arthurpicht.console.progress.ProcessIndicators.suppressOutput;
+
 public class ProgressCounter implements TriggeredProgressIndicator {
 
     private final ConsoleConfiguration consoleConfiguration;
@@ -18,14 +20,14 @@ public class ProgressCounter implements TriggeredProgressIndicator {
 
     @Override
     public void display() {
-        if (this.consoleConfiguration.isPlain()) return;
+        if (suppressOutput(this.consoleConfiguration)) return;
         this.consoleConfiguration.getStandardOut()
                 .print("[" + getCurrentAsString() + "/" + this.maxString + "]");
     }
 
     @Override
     public void clear() {
-        if (this.consoleConfiguration.isPlain()) return;
+        if (suppressOutput(this.consoleConfiguration)) return;
         this.consoleConfiguration.getStandardOut()
                 .print("\b".repeat(this.displayLength));
     }

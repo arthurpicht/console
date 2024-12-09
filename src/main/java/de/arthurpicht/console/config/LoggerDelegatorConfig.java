@@ -1,5 +1,6 @@
 package de.arthurpicht.console.config;
 
+@SuppressWarnings("ClassCanBeRecord")
 public class LoggerDelegatorConfig {
 
     private final String loggerName;

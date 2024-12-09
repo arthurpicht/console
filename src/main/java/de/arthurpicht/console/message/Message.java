@@ -5,6 +5,7 @@ import java.util.List;
 
 import static de.arthurpicht.utils.core.assertion.MethodPreconditions.assertArgumentIsEqualToOrGreaterThanZero;
 
+@SuppressWarnings("ClassCanBeRecord")
 public class Message {
 
     private final Level level;

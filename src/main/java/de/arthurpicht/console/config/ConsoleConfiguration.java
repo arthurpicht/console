@@ -7,7 +7,6 @@ import java.io.PrintStream;
 import java.util.Collections;
 import java.util.List;
 
-@SuppressWarnings("ClassCanBeRecord")
 public class ConsoleConfiguration {
 
     private final Level level;
@@ -15,6 +14,7 @@ public class ConsoleConfiguration {
     private final boolean ignoreNoColorEnvVar;
     private final boolean plain;
     private final boolean mute;
+    private final boolean suppressProgressIndicators;
     private final boolean recorder;
     private final List<MessageChannel> messageChannelList;
     private final PrintStream standardOut;
@@ -26,6 +26,7 @@ public class ConsoleConfiguration {
             boolean ignoreNoColorEnvVar,
             boolean plain,
             boolean mute,
+            boolean suppressProgressIndicators,
             boolean recorder,
             List<MessageChannel> messageChannelList,
             PrintStream standardOut,
@@ -35,6 +36,7 @@ public class ConsoleConfiguration {
         this.ignoreNoColorEnvVar = ignoreNoColorEnvVar;
         this.plain = plain;
         this.mute = mute;
+        this.suppressProgressIndicators = suppressProgressIndicators;
         this.recorder = recorder;
         this.messageChannelList = Collections.unmodifiableList(messageChannelList);
         this.standardOut = standardOut;
@@ -59,6 +61,10 @@ public class ConsoleConfiguration {
 
     public boolean isMute() {
         return this.mute;
+    }
+
+    public boolean isSuppressProgressIndicators() {
+        return this.suppressProgressIndicators;
     }
 
     public boolean hasRecorder() {
