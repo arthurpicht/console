@@ -39,7 +39,7 @@ public class RecorderChannel implements MessageChannel {
 
     @Override
     public boolean isMuted() {
-        return this.muted || this.consoleConfiguration.isMute();
+        return this.muted;
     }
 
     public void mute() {

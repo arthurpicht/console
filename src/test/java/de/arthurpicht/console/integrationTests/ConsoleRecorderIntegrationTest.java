@@ -135,6 +135,9 @@ public class ConsoleRecorderIntegrationTest {
     }
 
     @Test
+    /*
+     * Since 0.4.5 ConsoleRecorder mute state is independent of console mute state.
+     */
     public void mutedConsole() {
         ConsoleConfiguration consoleConfiguration = new ConsoleConfigurationBuilder()
                 .withMutedOutput()
@@ -145,7 +148,9 @@ public class ConsoleRecorderIntegrationTest {
         Console.println("Hello World!");
 
         List<String> output = ConsoleRecorder.getConsoleOutput();
-        assertTrue(output.isEmpty());
+
+        assertEquals(1, output.size());
+        assertEquals("Hello World!", output.getFirst());
     }
 
     @Test

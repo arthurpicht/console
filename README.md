@@ -88,7 +88,7 @@ are corresponding `print` and `println` methods, e.g. `printlnVerbose`.
 
 #### out method
 
-The `Console.out` method accepts an object of type `Message` an allows for printing out
+The `Console.out` method accepts an object of type `Message` and allows for printing out
 fine-grained message definitions. A message consists of one or more text chunks, each with
 it own format definition.
 
@@ -154,7 +154,7 @@ See class [Format](src/main/java/de/arthurpicht/console/message/format/Format.ja
 
 ### Verbosity levels
 
-There are four levels of verbosity: `REGULAR`, `VERBOSE`, `VERY_VERBOSE`, `VERY_VERY_VERBOSE`.
+There are four levels of verbosity: `NORMAL`, `VERBOSE`, `VERY_VERBOSE`, `VERY_VERY_VERBOSE`.
 Similar to the use in logger applications, a console message on level `VERBOSE` will only be
 shown, if `Console` is configured for at least `VERBOSE` level.
 
@@ -261,9 +261,8 @@ The following points are taken into account:
 * console configuration *plain* will also affect recorded messages
 * console configuration *level* will also affect recorded messages
 * recorded messages are free of colors and ANSI-based formatting independent of console configuration
-* messages sent to a muted console will also be omitted on recording
+* recorder mute state is independent of console mute state: messages sent to a muted console will also be recorded
 * the recorder has an additional *mute* flag: the recorder can be turned off independently of console
-* 
 
 *Caution*: As messages are stored in memory, recording output in long-running processes can be dangerous as this can 
 effectively appear as a memory-leak.
